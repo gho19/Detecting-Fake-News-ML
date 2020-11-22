@@ -1,11 +1,10 @@
 import pandas as pd
+import csv
+import os
 
-def open_file(filename):
-    self.root_path = os.path.dirname(os.path.abspath(__file__))
-    self.filepath = os.path.join(self.root_path, filepath)
-    self.file_obj = open(self.filepath, 'r', errors = 'replace')
-    
+fake_path = os.path.abspath('../Fake.csv')
+print(fake_path)
 
 # load in data from fake and true datasets 
-fake = pd.read_csv("Fake.csv")
-true = pd.read_csv("True.csv")
+fake = pd.read_csv(fake_path)
+#true = pd.read_csv("True.csv")
