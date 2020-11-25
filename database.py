@@ -3,6 +3,7 @@ import sqlite3
 import json
 import os
 
+# comment to check
 
 def setUpDatabase(db_name):
     path = os.path.dirname(os.path.abspath(__file__))
