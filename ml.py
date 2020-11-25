@@ -4,6 +4,8 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score
 
+# THIS ML ALGORITHM WAS TAKEN FROM: https://enlight.nyc/projects/build-a-naive-bayes-classifier
+
 df = pd.read_csv('cleaned_kaggle_news.csv')
 
 # Split the data

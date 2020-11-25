@@ -2,6 +2,8 @@ import pandas as pd
 import csv
 import os
 
+### THIS CLEANING SCRIPT WAS TAKEN FROM: https://enlight.nyc/projects/build-a-naive-bayes-classifier
+
 fake_path = os.path.abspath('../Fake.csv')
 print(fake_path)
 
