@@ -1,3 +1,6 @@
 .DS_Store
 finalProject.db
-
+WSJ/archiveArticleData.json
+WSJ/wsj_article_data.csv
+NYTimes/nytimes_article_data.csv
+NYTimes/nytimes_urls.csv

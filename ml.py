@@ -17,11 +17,10 @@ y = df[DV]
 # Training on 75% of the data, test on the rest
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.25)
 
-count_vect = CountVectorizer(max_features = 10000)# limiting to 5000, but room to play with this here!
+count_vect = CountVectorizer(max_features = 10000) # limiting to 5000, but room to play with this here!
 X_train_counts = count_vect.fit_transform(X_train['text']) 
 # print(count_vect.vocabulary_) # here is our bag of words! 
 X_test = count_vect.transform(X_test['text']) # note: we don't fit it to the model! Or else this is all useless
-
 
 
 # Fit the training dataset on the NB classifier
