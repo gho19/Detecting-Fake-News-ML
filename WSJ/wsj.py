@@ -111,7 +111,7 @@ def scrapeArticles(driver, login_url, cache_filename, data_filename):
 
 def main():
 
-    driver = getChromeDriver("/Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT/chromedriver_2", True)
+    driver = getChromeDriver("/Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT/chromedriver_2", False)
 
     
     try:
@@ -123,7 +123,7 @@ def main():
 
         loginWSJ(driver, login_url, 'gochase@umich.edu', 'SI206Final!')
 
-        scrapeArticles(driver, login_url, 'archiveArticleData.json', 'wsj_article_data.csv')
+        #scrapeArticles(driver, login_url, 'archiveArticleData.json', 'wsj_article_data.csv')
 
         driver.quit()
     
