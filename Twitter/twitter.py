@@ -18,15 +18,12 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
-
 def twitterData():
       # Usernames from Twitter to scrape Tweets from 
       usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
 
       # Number of Tweets to scrape per user
       count = 25 
-
-      # tweets_df = pd.DataFrame()
 
       data = []
 
@@ -36,32 +33,54 @@ def twitterData():
                   tweets = tweepy.Cursor(api.user_timeline, id = name).items(count)
                   
                   # Pulling information from Tweets iterable object
+                  # tweet_list only contains 25 data points per Twitter user
                   tweets_list = [[name, tweet.text.strip(), tweet.created_at] for tweet in tweets]
                   for i in range(len(tweets_list)):
                         data.append(tweets_list[i])
-                  
-                  # Creation of dataframe from Tweets list
-                  # Add or remove columns as you remove tweet information
-                  # tweets_df = tweets_df.append(pd.DataFrame(tweets_list))
-                  
-
+            
             except BaseException as e:
                   print('failed on_status,', str(e))
                   time.sleep(3)
 
       return data
 
-def insertTwitterData():
-      cur, conn = setUpDatabase('twitter.db')
+# Creates table in database with UserId and Username
+def twitterUsersTable():
+      cur.execute("DROP TABLE IF EXISTS twitter_users")
+      cur.execute("CREATE TABLE twitter_users (UserId INTEGER PRIMARY KEY, Username TEXT)")
+
+      # Usernames from Twitter to scrape Tweets from 
+      usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
+
+      for name in range(len(usernames)):
+            cur.execute("INSERT INTO twitter_users (UserId, Username) VALUES (?,?)", (name + 1, usernames[name]))
+
+# Creates table with raw data gathered from Twitter API
+def twitterDataTable():
       data = twitterData()
 
-      cur.execute("DROP TABLE IF EXISTS Twitter")
-      cur.execute("CREATE TABLE Twitter (tweet_id INTEGER PRIMARY KEY, username TEXT, tweet TEXT, timestamp TEXT)")
+      cur.execute("DROP TABLE IF EXISTS twitter_raw")
+      cur.execute("CREATE TABLE twitter_raw (TweetId INTEGER PRIMARY KEY, Username TEXT, Tweet TEXT, Timestamp TEXT)")
 
       for row in range(len(data)):
-            cur.execute("INSERT INTO Twitter (tweet_id, username, tweet, timestamp) VALUES (?,?,?,?)", (row, data[row][0], data[row][1], data[row][2]))
+            cur.execute("INSERT INTO twitter_raw (TweetId, Username, Tweet, Timestamp) VALUES (?,?,?,?)", (row + 1, data[row][0], data[row][1], data[row][2]))
 
       conn.commit()
 
-insertTwitterData()
+# Creates table with JOIN operation, to avoid duplicate data
+def twitterSharedUsersTable():
+      cur.execute("DROP TABLE IF EXISTS twitter_final")
+      cur.execute("CREATE TABLE twitter_final AS SELECT twitter_raw.TweetId, twitter_users.UserId, twitter_raw.Tweet, twitter_raw.Timestamp FROM twitter_raw JOIN twitter_users ON twitter_users.Username = twitter_raw.Username")
+      conn.commit()
+
+
+# DATA ENTRY TO DATABASE, CHANGE LATER WHEN FINAL.DB READY
+'''
+cur, conn = setUpDatabase('twitter.db')
+twitterUsersTable()
+twitterDataTable()
+twitterSharedUsersTable()
+'''
+
+
 
