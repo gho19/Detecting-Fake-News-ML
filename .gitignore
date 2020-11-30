@@ -4,3 +4,6 @@ WSJ/archiveArticleData.json
 WSJ/wsj_article_data.csv
 NYTimes/nytimes_article_data.csv
 NYTimes/nytimes_urls.csv
+Kaggle/cleaned_kaggle_news.csv
+Kaggle/Fake.csv
+Kaggle/True.csv
