@@ -58,7 +58,7 @@ def twitterUsersTable(usernames):
 def twitterTable(usernames):
       cur.execute("CREATE TABLE IF NOT EXISTS twitter(TweetId INTEGER PRIMARY KEY, Tweet TEXT, Timestamp TEXT, UserId INTEGER, FOREIGN KEY (UserId) REFERENCES twitter_users (UserId))")
 
-      # Count for IDs <-- THIS IS WHERE IT WOULD BE PROBLEMATIC
+      # Count for IDs 
       data_count = 1
       name_count = 1
 
