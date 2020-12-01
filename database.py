@@ -2,6 +2,9 @@ import unittest
 import sqlite3
 import json
 import os
+from WSJ import wsj as wallstreet
+#from NYTimes import nytimes_urls, nytimes_articles
+
 
 # OFFICE HOURS QUESTIONS:
 # 1. Is it considered duplicate data if two articles contain the same word? If so, how should we deal with this? Should we create
@@ -31,6 +34,10 @@ import os
 # the info and then insert it directly into the corresponding table in the database
 # We really should put the kaggle data into the database as well just so everything is in the database
 
+# action steps
+# fill in all of the functions below
+
+# start changing the web scraping / API scripts to go directly into the database tables instead of CSV files
 
 
 def setUpDatabase(db_name):
@@ -40,37 +47,43 @@ def setUpDatabase(db_name):
     return cur, conn
 
 
-def initializeKaggleTable(cur, conn):
-    cur.execute("DROP TABLE IF EXISTS Kaggle")
-    cur.execute("CREATE TABLE Kaggle (story_text TEXT, real_news INT)")
-
-    conn.commit()
-
-def initializeNewsTypesTable(curr, conn):
-    pass
-
-def initializeNewsSourcesTable(curr, conn):
-    pass
-
-def initializeTwitterUsersTable(curr, conn):
-    pass
-
-def initializeTwitterDataTable(curr, conn):
-    pass
-
-def initializeNewsAPIDataTable(curr, conn):
-    pass
-
-def initializeNYTimesTable(curr, conn):
-    pass
-
-def initializeTwitterTable(curr, conn):
-    pass
-
-def initializeWSJTable(curr, conn):
-    pass
 
 
+
+
+# def initializeKaggleTable(cur, conn):
+#     cur.execute("DROP TABLE IF EXISTS Kaggle")
+#     cur.execute("CREATE TABLE Kaggle (story_text TEXT, real_news INT)")
+
+#     conn.commit()
+
+# def initializeNewsTypesTable(curr, conn):
+#     pass
+
+# def initializeNewsSourcesTable(curr, conn):
+#     pass
+
+# def initializeTwitterUsersTable(curr, conn):
+#     pass
+
+# def initializeTwitterDataTable(curr, conn):
+#     pass
+
+# def initializeNewsAPIDataTable(curr, conn):
+#     pass
+
+# def initializeNYTimesTable(curr, conn):
+#     pass
+
+# def initializeTwitterTable(curr, conn):
+#     pass
+
+# def initializeWSJTable(curr, conn):
+#     pass
+
+# def initializeAllTables(curr, conn):
+#     # call all of the functions above
+#     pass
 
 # def fillKaggleTable(kaggle_csv_filename, cur, conn):
 #     setUpKaggleTable(cur, conn)
