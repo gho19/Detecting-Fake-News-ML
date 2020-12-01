@@ -71,7 +71,7 @@ def fillWSJ_URL_Table(cur, conn, driver):
     for month in range(7, 12)[:1]:
         
         # iterate over days 1 - 29 of each month
-        for day in range(1, 30)[:1]:
+        for day in range(1, 30)[:10]:
             # format url with the dynamic month and day 
             archive_url = "https://www.wsj.com/news/archive/2020/{}/{}".format(str(month), str(day))
             
@@ -100,7 +100,7 @@ def fillWSJ_URL_Table(cur, conn, driver):
 
                     article_id += 1
             except Exception as e:
-                print("Error fetching article URLs from {}.\n Error message:\n{}\n".format(archive_url, e))
+                print("Error fetching article URLs from {}.\nError message:\n{}\n".format(archive_url, e))
                 
             
     # commit the changes to the database
@@ -144,7 +144,7 @@ def fillWSJArticleContentTable(cur, conn, driver):
             cur.execute('INSERT INTO WSJ_Article_Content (article_id, article_content) VALUES (?, ?)', (article_id, articleContent))
         
         except Exception as e:
-            print("Error fetching article content from {}.\n Error message:\n{}\n".format(url, e))
+            print("Error fetching article content from {}.\nError message:\n{}\n".format(url, e))
     
     # commit the changes to the database
     conn.commit()
@@ -165,7 +165,7 @@ def wallStreetJournalHandler():
         driver.quit()
 
 
-
+wallStreetJournalHandler()
 
 
 
