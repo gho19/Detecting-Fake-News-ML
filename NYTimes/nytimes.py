@@ -5,6 +5,13 @@ import csv
 import time
 import os
 import sqlite3
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--enforceLimit', default=False, action='store_true', required=True)
+parser.add_argument('--numRuns', type=int, choices=[x for x in range(5)], required=True)
+args = parser.parse_args()
+
 
 
 # going to need this function at the top of all our files that insert data into the database
@@ -22,7 +29,6 @@ def connectToDB(db_name):
 # Then, there will be another script that scrapes the text content from each article URL and
 # puts that text content into the database
 
-
 API_KEY = "JdfhwcfpxaR5uHaqRSpZMSxuxsA78twm"
 good_section_names = ['U.S.', 'World', 'Science', 'Today’s Paper', 'New York', 'Health', 'Politics']
 
@@ -35,24 +41,26 @@ def parsePubDate(pubDate):
     return day, month, year
 
 def getNewSections(cur, conn, list_sections):
-    # need to store the sections that are already in the table
     cur.execute('SELECT section_name FROM NYT_Sections')
+    
     all_sections = [tup[0] for tup in cur.fetchall()]
     new_sections = []
+    
     for section in list_sections:
+        
         if section not in all_sections:
             new_sections.append(section)
     
     return new_sections
     
 def getHighestId(cur, conn, column_name, table_name):
-    # need to store the max section_id in the table right now
     cur.execute('SELECT {} FROM {}'.format(column_name, table_name))
     
     section_id_list = [int(tup[0]) for tup in cur.fetchall()]
 
     if section_id_list != []: 
         highest_id = max(section_id_list) + 1
+    
     else:
         highest_id = 0
     
@@ -120,7 +128,6 @@ def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
     
     cur.execute('SELECT article_id, url_extension FROM NYT_URL_Data')
 
-
     id_url_tuples = cur.fetchall()
 
     for tup in id_url_tuples:
@@ -151,8 +158,10 @@ def getNYTURLDictionary(enforceLimit, runIteration):
     if enforceLimit:
         count = 0
         startingIndex = runIteration * 26
+        maxCount = 25
     else:
         startingIndex = 110
+        maxCount = 1000
 
     
     # loop through the years 2015 and 2016
@@ -216,15 +225,7 @@ def getNYTURLDictionary(enforceLimit, runIteration):
                     # check to see if we have reached 25 new things
                     if enforceLimit:
                         count += 1
-                        if count >= 25:
-                            
-                            # HELPER CODE
-                            for url in all_data_dictionary:
-                                print(url)
-
-                            # HELPER CODE
-
-
+                        if count >= maxCount:
                             return all_data_dictionary
 
                 # if there was a key error or some other issue, just continue onto the next dictionary
@@ -252,20 +253,23 @@ def fillAllNYT_Tables(cur, conn, enforceLimit, runIteration):
     fillNYT_URL_Data_Table(cur, conn, nytimes_url_dictionary, runIteration)
 
     # # fill the Table with Article Content
-    # fillNYTimes_ArticleContent_Table(cur, conn, runIteration)
+    fillNYTimes_ArticleContent_Table(cur, conn, runIteration)
 
 def driveNYT_db(enforceLimit = True, runIteration = 0):
     cur, conn = connectToDB('finalProject.db')
     fillAllNYT_Tables(cur, conn, enforceLimit, runIteration)
 
-driveNYT_db(True, 2)
+driveNYT_db(args.enforceLimit, args.numRuns)
 
-# first run at the command line:
-# python nytimes.py (enforceLimit = True, runIteration = 0)
-# python nytimes.py (enforceLimit = True, runIteration = 1)
-# python nytimes.py (enforceLimit = True, runIteration = 2)
-# python nytimes.py (enforceLimit = True, runIteration = 3)
-# python nytimes.py (enforceLimit = False, runIteration = 4)
+# HOW TO RUN THIS PROGRAM AT THE COMMAND LINE!!!
+
+# python nytimes.py --enforceLimit --numRuns 0
+# python nytimes.py --enforceLimit --numRuns 1
+# python nytimes.py --enforceLimit --numRuns 2
+# python nytimes.py --enforceLimit --numRuns 3
+# python nytimes.py --numRuns 4
+
+
 
 
 
