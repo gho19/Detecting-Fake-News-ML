@@ -62,7 +62,7 @@ def loginWSJ(driver, base_url, email, password):
 def fillWSJ_URL_Table(cur, conn, driver):
     # create the table w/ the desired columns if it does not exist already
     # source_id, article_id, url_extension, day, month, year
-    cur.execute('DROP TABLE IF EXISTS WSJ_URL_Data')
+    # cur.execute('DROP TABLE IF EXISTS WSJ_URL_Data')
     cur.execute('CREATE TABLE IF NOT EXISTS WSJ_URL_Data (source_id INT, article_id INT, url_extension TEXT UNIQUE, day INT, month INT, year INT)')
     
     article_id = 0
