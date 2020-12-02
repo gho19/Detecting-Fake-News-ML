@@ -21,6 +21,7 @@ def setUpDatabase(db_name):
 # Specifically, this function gathers the Source, Title, Description, Timestamp, and URL of the article.
 # newsApiData() returns a list containing ['Source', 'Title', 'Decription', 'Timestamp', 'URL']
 def newsApiData():
+    # NOTE: API ONLY REFRESHES EVERY HOUR!!!
     entries = []
 
     for news in data['articles']:
@@ -58,10 +59,8 @@ def newsApiTable(data):
 
         # Gets the first article from previous API refresh
         cur.execute('SELECT Title from news_api')
-        cur_check = cur.fetchone()
-        print(cur_check)
-        print(rows)
-        check = cur_check[rows - 20]  
+        cur_check = cur.fetchall()
+        check = cur_check[rows - 20][0]
 
         # Check to see if data already in table
         if check == data[0][1]:
