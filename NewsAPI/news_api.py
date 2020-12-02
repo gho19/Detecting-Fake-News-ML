@@ -10,7 +10,7 @@ response = requests.get(url)
 data = response.json()
 
 # Setups the database to store data gathered for SI 206 Final Project
-def setUpDatabase(db_name)
+def setUpDatabase(db_name):
     path = os.path.dirname(os.path.abspath(__file__))
     conn = sqlite3.connect(path+'/'+db_name)
     cur = conn.cursor()
@@ -20,7 +20,7 @@ def setUpDatabase(db_name)
 # Uses the NEWS API to retrieve live articles from all over the web. 
 # Specifically, this function gathers the Source, Title, Description, Timestamp, and URL of the article.
 # newsApiData() returns a list containing ['Source', 'Title', 'Decription', 'Timestamp', 'URL']
-def newsApiData()
+def newsApiData():
     entries = []
 
     for news in data['articles']:
@@ -33,7 +33,7 @@ def newsApiData()
 # Uploads data retrieved from the NEW API to 'news_api' table 
 # newsApiTable() has data, a list, as a parameter, which is the data returned from newsApiData() 
 def newsApiTable(data):
-    cur.execute("CREATE TABLE IF NOT EXISTS news_api (ArticleId INTEGER PRIMARY KEY, Title TEXT, Description TEXT, Timestamp TEXT, Url TEXT, Source TEXT, UNIQUE(Title))")
+    cur.execute("CREATE TABLE IF NOT EXISTS news_api (ArticleId INTEGER PRIMARY KEY, Title TEXT, Description TEXT, Timestamp TEXT, Url TEXT, Source TEXT)")
 
     # Check how many rows in DB Table
     cur.execute('SELECT COUNT(*) from news_api')
@@ -44,24 +44,38 @@ def newsApiTable(data):
     # Check how many rows in database to set TweetId
     if rows == 0: 
         data_count = 1
-
-    # Generate UNIQUE ArticleId for each article
-    else: 
-        cur.execute("SELECT * FROM news_api WHERE ArticleId = (SELECT MAX(ArticleId) FROM news_api)")
-        data_count = cur.fetchone()[0] + 1     
-      
-    # Add data to table
-    try:
+        
         for entry in range(len(data)):
             cur.execute("INSERT INTO news_api (ArticleId, Title, Description, Timestamp, Url, Source) VALUES (?,?,?,?,?,?)", (data_count, data[entry][1], data[entry][2], data[entry][3], data[entry][4], data[entry][0]))
             data_count += 1
-        print("Added 20 new headlines to database!")
+        print("Added 20 new headlines to news_api table!")
         conn.commit()
 
-    # API only gives 20 articles per 15 minutes, if data already in table, throw exception
-    except:
-        print("API has not refreshed any new articles! Try again later!")
+    else: 
+        # Generate UNIQUE ArticleId for each article
+        cur.execute("SELECT * FROM news_api WHERE ArticleId = (SELECT MAX(ArticleId) FROM news_api)")
+        data_count = cur.fetchone()[0] + 1 
 
+        # Gets the first article from previous API refresh
+        cur.execute('SELECT Title from news_api')
+        cur_check = cur.fetchone()
+        print(cur_check)
+        print(rows)
+        check = cur_check[rows - 20]  
+
+        # Check to see if data already in table
+        if check == data[0][1]:
+            print("API has not refreshed any new articles! Try again later!")
+        else: 
+            # Upload data to table
+            for entry in range(len(data)):
+                cur.execute("INSERT INTO news_api (ArticleId, Title, Description, Timestamp, Url, Source) VALUES (?,?,?,?,?,?)", (data_count, data[entry][1], data[entry][2], data[entry][3], data[entry][4], data[entry][0]))
+                data_count += 1
+            print("Added 20 new headlines to database!")
+            conn.commit()
+
+      
+   
 cur, conn = setUpDatabase('news_api.db')
 data = newsApiData()
 newsApiTable(data)

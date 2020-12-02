@@ -52,7 +52,8 @@ def twitterUsersTable(usernames):
 
       for name in range(len(usernames)):
             cur.execute("INSERT INTO twitter_users (UserId, Username) VALUES (?,?)", (name + 1, usernames[name]))
-            conn.commit()
+            print("Added new user to twitter_users table!")
+      conn.commit()
             
 
 # Creates table and adds data scraped from TWITTER API to 'twitter'
@@ -85,6 +86,7 @@ def twitterTable(usernames):
                   cur.execute("INSERT INTO twitter (TweetId, TweetNum, Tweet, Timestamp, UserId) VALUES (?,?,?,?,?)", (data_count, data[row][0], data[row][1], data[row][2], name_count,))
                   data_count += 1
             name_count += 1
+            print("Added 25 new Tweets to twitter table!")
             conn.commit()
             time.sleep(5)
             
@@ -93,6 +95,7 @@ def twitterTable(usernames):
 cur, conn = setUpDatabase('twitter.db')
 
 # Usernames from Twitter to scrape Tweets from 
+# NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
 usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
 
 twitterUsersTable(usernames)
