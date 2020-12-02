@@ -3,6 +3,9 @@ import sqlite3
 import json
 import os
 from WSJ import wsj as wallstreet
+from NYTimes import *
+
+
 #from NYTimes import nytimes_urls, nytimes_articles
 
 
@@ -48,67 +51,8 @@ def setUpDatabase(db_name):
 
 
 
-
-
-
-# def initializeKaggleTable(cur, conn):
-#     cur.execute("DROP TABLE IF EXISTS Kaggle")
-#     cur.execute("CREATE TABLE Kaggle (story_text TEXT, real_news INT)")
-
-#     conn.commit()
-
-# def initializeNewsTypesTable(curr, conn):
-#     pass
-
-# def initializeNewsSourcesTable(curr, conn):
-#     pass
-
-# def initializeTwitterUsersTable(curr, conn):
-#     pass
-
-# def initializeTwitterDataTable(curr, conn):
-#     pass
-
-# def initializeNewsAPIDataTable(curr, conn):
-#     pass
-
-# def initializeNYTimesTable(curr, conn):
-#     pass
-
-# def initializeTwitterTable(curr, conn):
-#     pass
-
-# def initializeWSJTable(curr, conn):
-#     pass
-
-# def initializeAllTables(curr, conn):
-#     # call all of the functions above
-#     pass
-
-# def fillKaggleTable(kaggle_csv_filename, cur, conn):
-#     setUpKaggleTable(cur, conn)
-#     path = os.path.dirname(os.path.abspath(__file__)) + '/Kaggle/' + kaggle_csv_filename
-#     try:
-#         with open(path, 'r') as infile:
-#             rows = infile.readlines()
-#             for row in rows[1:]:
-#                 story_text = row[:-3]
-#                 real_news_indicator = row.split(',')[-1]
-#                 cur.execute("INSERT INTO Kaggle (story_text,real_news) VALUES (?,?)",(story_text, real_news_indicator))
-#         conn.commit()
-#     except:
-#         print("Unable to open {}. Please try again.".format(kaggle_csv_filename))
-
-
-
-
-
-
-
-
 def main():
     cur, conn = setUpDatabase('finalProject.db')
-    fillKaggleTable('cleaned_kaggle_news.csv', cur, conn)
     conn.close()
 
 
