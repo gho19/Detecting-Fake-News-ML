@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score
 
 # THIS ML ALGORITHM WAS TAKEN FROM: https://enlight.nyc/projects/build-a-naive-bayes-classifier
 
+# TRAINING OUR MODEL
 df = pd.read_csv('cleaned_kaggle_news.csv')
 
 # Split the data
@@ -34,12 +35,12 @@ predictions_NB = Naive.predict(X_test)
 # Use accuracy_score function to get the accuracy
 print('Accuracy Score:', accuracy_score(predictions_NB, y_test) * 100)
 
-
+# classifier() takes text, a list of strings, as a parameter 
+# This function classifies text as 'Fake News' or 'True News' 
 def classifier(text):
     Naive = MultinomialNB()
     Naive.fit(X_train_counts, y_train)
     
-    # n.b: you may need to wrap the argument in brackets to make it a vector if you passed in a string
     word_vec = count_vect.transform(text) 
     
     predict = Naive.predict(word_vec)

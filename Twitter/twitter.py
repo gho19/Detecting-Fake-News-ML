@@ -18,6 +18,10 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
+# Uses the TWITTER API (tweepy) to retrieve Tweets from a specified user.
+# This function gathers a unique Tweet ID, the Tweet text, and Timestamp of the Tweet
+# twitterData() takes a username as a parameter (i.e. realDonaldTrump)
+# twitterData() returns a list containing ['tweetId', 'tweetText', 'tweetTimestamp']
 def twitterData(user):
       # Number of Tweets to scrape per user
       count = 25
@@ -26,7 +30,7 @@ def twitterData(user):
 
       try:     
             # Creation of query method using parameters
-            tweets = tweepy.Cursor(api.user_timeline, id = user, since_id = '1/1/2020').items(count)
+            tweets = tweepy.Cursor(api.user_timeline, id = user).items(count)
                   
             # Pulling information from Tweets iterable object
             # tweet_list only contains 25 data points per Twitter user
@@ -41,17 +45,19 @@ def twitterData(user):
       return data
 
 
-# Creates table in database with UserId and Username
+# Creates table and uploads data to table called 'twitter_users' with UserId and Username as columns
+# twitterUsersTable() has a list of Twitter usernams as a parameter 
 def twitterUsersTable(usernames):
       cur.execute("CREATE TABLE IF NOT EXISTS twitter_users (UserId INTEGER PRIMARY KEY, Username TEXT)")
 
       for name in range(len(usernames)):
             cur.execute("INSERT INTO twitter_users (UserId, Username) VALUES (?,?)", (name + 1, usernames[name]))
             conn.commit()
+            
 
-
-
-# Creates table and adds data scraped from API
+# Creates table and adds data scraped from TWITTER API to 'twitter'
+# twitterTable() has a list of Twitter usernams as a parameter 
+# The columns in the database are as follows: TweetId, Tweet, Timestamp, TweetNum, UserId
 def twitterTable(usernames):
       cur.execute("CREATE TABLE IF NOT EXISTS twitter (TweetId INTEGER PRIMARY KEY, Tweet TEXT, Timestamp TEXT, TweetNum INTEGER, UserId INTEGER, UNIQUE(TweetNum), FOREIGN KEY (UserId) REFERENCES twitter_users (UserId))")
 

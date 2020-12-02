@@ -258,7 +258,7 @@ def driveNYT_db(enforceLimit = True, runIteration = 0):
     cur, conn = connectToDB('finalProject.db')
     fillAllNYT_Tables(cur, conn, enforceLimit, runIteration)
 
-driveNYT_db(True, 0)
+driveNYT_db(True, 2)
 
 # first run at the command line:
 # python nytimes.py (enforceLimit = True, runIteration = 0)
