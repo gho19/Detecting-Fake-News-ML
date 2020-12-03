@@ -3,6 +3,7 @@ import pandas as pd
 import time
 import sqlite3
 import os
+import database
 
 api_key = 'WAXwiSwrSs088l8g91iRf9Tpc'
 api_secret = 'fO943Sq5b3ZCgxJAtcT0zouPxaKw2v4tjDd5eaQKuy7PkuC0r6'
@@ -11,51 +12,6 @@ access_token_secret = 'w1LeCyW37WRGr4DtzKe0YR7EXXwG0SI5Sy2IvenO5Bg5U'
 auth = tweepy.OAuthHandler(api_key, api_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit = True)
-
-def setUpDatabase(db_name):
-    path = os.path.dirname(os.path.abspath(__file__)).replace("/Twitter", '')
-    conn = sqlite3.connect(path+'/'+db_name)
-    cur = conn.cursor()
-    return cur, conn
-
-
-def getHighestId(cur, conn, column_name, table_name):
-    cur.execute('SELECT {} FROM {}'.format(column_name, table_name))
-    
-    section_id_list = [int(tup[0]) for tup in cur.fetchall()]
-
-    if section_id_list != []: 
-        highest_id = max(section_id_list) + 1
-    
-    else:
-        highest_id = 0
-    
-    conn.commit()
-    return highest_id
-
-
-def getSourceID(cur, conn, source_name):
-    cur.execute('CREATE TABLE IF NOT EXISTS Sources (source_id INT, source_name TEXT)')
-    
-    cur.execute('SELECT source_id, source_name FROM Sources')
-    
-    id_name_tups = cur.fetchall()
-    source_ids = [tup[0] for tup in id_name_tups]
-    source_names = [tup[1] for tup in id_name_tups]
-
-    # if we already have this source in the sources_table
-    if source_name in source_names:
-        cur.execute('SELECT source_id FROM Sources WHERE Sources.source_name = "{}"'.format(source_name))
-        source_id = cur.fetchone()[0]
-        
-    # if we don't already have this source in the sources table
-    else:
-        highest_id = getHighestId(cur, conn, 'source_id', 'Sources')
-        cur.execute('INSERT INTO Sources (source_id, source_name) VALUES (?,?)', (highest_id, source_name))
-        source_id = highest_id
-    
-    conn.commit()
-    return source_id
 
 
 # Uses the TWITTER API (tweepy) to retrieve Tweets from a specified user.
@@ -124,7 +80,7 @@ def twitterTable(usernames, cur, conn):
             name_count = cur.fetchone()[0]
             # Setup database
             for row in range(len(data)):
-                  sourceId = getSourceID(cur, conn, 'Twitter')
+                  sourceId = database.getSourceID(cur, conn, 'Twitter')
                   cur.execute("INSERT INTO Twitter (TweetId, SourceId, TweetNum, Tweet, Timestamp, UserId) VALUES (?,?,?,?,?,?)", (data_count, sourceId, data[row][0], data[row][1], data[row][2], name_count,))
                   data_count += 1
             name_count += 1
@@ -135,7 +91,7 @@ def twitterTable(usernames, cur, conn):
 
 # Setup DB
 def fillAllTwitterTables():
-      cur, conn = setUpDatabase('finalProject.db')
+      cur, conn = database.setUpDatabase('finalProject.db')
 
       # Usernames from Twitter to scrape Tweets from 
       # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 

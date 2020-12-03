@@ -163,8 +163,9 @@ def fillWSJArticleContentTable(cur, conn, driver, month, day):
 
 # Drives all functions pertaining to the Wall Street Journal.
 def driveWSJ_db(month, day):
-    
-    driver = getChromeDriver("/Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT/chromedriver_2", True)
+    # CHASE: /Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT
+    # GRANT: /Users/gho/Desktop/SI-206/Projects/FinalProject/SI206-FINAL-PROJECT
+    driver = getChromeDriver("/Users/gho/Desktop/SI-206/Projects/FinalProject/SI206-FINAL-PROJECT/chromedriver_2", True)
     login_url = "https://accounts.wsj.com/login?target=https%3A%2F%2Fwww.wsj.com%2Fnews%2Farchive%2F2020%2F11%2F27"
 
     try:
