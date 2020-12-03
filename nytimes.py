@@ -6,47 +6,13 @@ import time
 import os
 import sqlite3
 import argparse
+import database 
+
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--numRuns', type=int, choices=[x for x in range(25)], required=True)
 args = parser.parse_args()
-print(args)
-
-
-# going to need this function at the top of all our files that insert data into the database
-# make sure that the path to the database is correct
- 
-def connectToDB(db_name):
-    path = os.path.dirname(os.path.abspath(__file__)).replace("/NYTimes", '')
-    conn = sqlite3.connect(path+'/'+db_name)
-    cur = conn.cursor()
-    return cur, conn
-
-
-def getSourceID(cur, conn, source_name):
-    cur.execute('CREATE TABLE IF NOT EXISTS Sources (source_id INT, source_name TEXT)')
-    
-    cur.execute('SELECT source_id, source_name FROM Sources')
-    
-    id_name_tups = cur.fetchall()
-    source_ids = [tup[0] for tup in id_name_tups]
-    source_names = [tup[1] for tup in id_name_tups]
-
-    # if we already have this source in the sources_table
-    if source_name in source_names:
-        cur.execute('SELECT source_id FROM Sources WHERE Sources.source_name = "{}"'.format(source_name))
-        source_id = cur.fetchone()[0]
-        
-    # if we don't already have this source in the sources table
-    else:
-        highest_id = getHighestId(cur, conn, 'source_id', 'Sources')
-        cur.execute('INSERT INTO Sources (source_id, source_name) VALUES (?,?)', (highest_id, source_name))
-        source_id = highest_id
-    
-    conn.commit()
-    return source_id
-
-
 
 # This script is collecting the URLS for all articles published by the New York Times
 # in 2015 and 2016 (before Trump and the first year of Trump). 
@@ -77,20 +43,6 @@ def getNewSections(cur, conn, list_sections):
     
     conn.commit()
     return new_sections
-    
-def getHighestId(cur, conn, column_name, table_name):
-    cur.execute('SELECT {} FROM {}'.format(column_name, table_name))
-    
-    section_id_list = [int(tup[0]) for tup in cur.fetchall()]
-
-    if section_id_list != []: 
-        highest_id = max(section_id_list) + 1
-    
-    else:
-        highest_id = 0
-    
-    conn.commit()
-    return highest_id
 
 
 def fillNYT_Sections_Table(cur, conn, list_sections, runIteration):
@@ -103,7 +55,7 @@ def fillNYT_Sections_Table(cur, conn, list_sections, runIteration):
     new_sections = getNewSections(cur, conn, list_sections)
 
     # need to store the max section_id in the table right now
-    highest_id = getHighestId(cur, conn, 'section_id', 'NYT_Sections')
+    highest_id = database.getHighestId(cur, conn, 'section_id', 'NYT_Sections')
 
 
     for i, section in enumerate(new_sections):
@@ -119,11 +71,11 @@ def fillNYT_URL_Data_Table(cur, conn, data_dictionary, runIteration):
     cur.execute('CREATE TABLE IF NOT EXISTS NYT_URL_Data (source_id INT, article_id INT, url_extension TEXT, section_id INT, word_count INT, print_page INT, day INT, month INT, year INT)')
 
     # need to store the max section_id in the table right now
-    highest_id = getHighestId(cur, conn, 'article_id', 'NYT_URL_Data')
+    highest_id = database.getHighestId(cur, conn, 'article_id', 'NYT_URL_Data')
 
     for i, url in enumerate(data_dictionary):
 
-        source_id = getSourceID(cur, conn, 'New York Times')
+        source_id = database.getSourceID(cur, conn, 'New York Times')
         article_id = i
         url_extension = url
 
@@ -296,18 +248,18 @@ def fillAllNYT_Tables(cur, conn, runIteration):
     fillNYTimes_ArticleContent_Table(cur, conn, runIteration)
 
 def driveNYT_db(runIteration):
-    cur, conn = connectToDB('finalProject.db')
+    cur, conn = database.setUpDatabase('finalProject.db')
     fillAllNYT_Tables(cur, conn, runIteration)
 
 driveNYT_db(args.numRuns)
 
 # HOW TO RUN THIS PROGRAM AT THE COMMAND LINE:
-# 1) python NYTimes/nytimes.py --numRuns 0 (25 Articles for January 2015)
-# 2) python NYTimes/nytimes.py --numRuns 1 (25 Articles for February 2015)
-# 3) python NYTimes/nytimes.py --numRuns 2 (25 Articles for March 2015)
-# 4) python NYTimes/nytimes.py --numRuns 3 (25 Articles for April 2015)
+# 1) python nytimes.py --numRuns 0 (25 Articles for January 2015)
+# 2) python nytimes.py --numRuns 1 (25 Articles for February 2015)
+# 3) python nytimes.py --numRuns 2 (25 Articles for March 2015)
+# 4) python nytimes.py --numRuns 3 (25 Articles for April 2015)
 #    ....
-# 24) python NYTimes/nytimes.py --numRuns 23 (25 Articles for December 2016)
+# 24) python nytimes.py --numRuns 23 (25 Articles for December 2016)
 
 
 
