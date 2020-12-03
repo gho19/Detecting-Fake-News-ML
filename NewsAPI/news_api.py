@@ -11,7 +11,7 @@ data = response.json()
 
 # Setups the database to store data gathered for SI 206 Final Project
 def setUpDatabase(db_name):
-    path = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.dirname(os.path.abspath(__file__)).replace("/NewsAPI", '')
     conn = sqlite3.connect(path+'/'+db_name)
     cur = conn.cursor()
     return cur, conn
@@ -33,7 +33,7 @@ def newsApiData():
 
 # Uploads data retrieved from the NEW API to 'news_api' table 
 # newsApiTable() has data, a list, as a parameter, which is the data returned from newsApiData() 
-def newsApiTable(data):
+def newsApiTable(data, cur, conn):
     cur.execute("CREATE TABLE IF NOT EXISTS news_api (ArticleId INTEGER PRIMARY KEY, Title TEXT, Description TEXT, Timestamp TEXT, Url TEXT, Source TEXT)")
 
     # Check how many rows in DB Table
@@ -72,14 +72,16 @@ def newsApiTable(data):
                 data_count += 1
             print("Added 20 new headlines to database!")
             conn.commit()
+  
+def fillAllNewsApiTables():
+    cur, conn = setUpDatabase('finalProject.db')
+    data = newsApiData()
+    newsApiTable(data, cur, conn)
 
-      
-   
-cur, conn = setUpDatabase('news_api.db')
-data = newsApiData()
-newsApiTable(data)
+fillAllNewsApiTables()
 
-
+# To run news_api, navigate to news_api directory 
+# Type python3 news_api.py
 
 '''
 def newsApiSourcesTable(data):

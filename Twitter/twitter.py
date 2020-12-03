@@ -13,7 +13,7 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth, wait_on_rate_limit = True)
 
 def setUpDatabase(db_name):
-    path = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.dirname(os.path.abspath(__file__)).replace("/Twitter", '')
     conn = sqlite3.connect(path+'/'+db_name)
     cur = conn.cursor()
     return cur, conn
@@ -47,7 +47,7 @@ def twitterData(user):
 
 # Creates table and uploads data to table called 'twitter_users' with UserId and Username as columns
 # twitterUsersTable() has a list of Twitter usernams as a parameter 
-def twitterUsersTable(usernames):
+def twitterUsersTable(usernames, cur, conn):
       cur.execute("CREATE TABLE IF NOT EXISTS twitter_users (UserId INTEGER PRIMARY KEY, Username TEXT)")
 
       for name in range(len(usernames)):
@@ -59,7 +59,7 @@ def twitterUsersTable(usernames):
 # Creates table and adds data scraped from TWITTER API to 'twitter'
 # twitterTable() has a list of Twitter usernams as a parameter 
 # The columns in the database are as follows: TweetId, Tweet, Timestamp, TweetNum, UserId
-def twitterTable(usernames):
+def twitterTable(usernames, cur, conn):
       cur.execute("CREATE TABLE IF NOT EXISTS twitter (TweetId INTEGER PRIMARY KEY, Tweet TEXT, Timestamp TEXT, TweetNum INTEGER, UserId INTEGER, UNIQUE(TweetNum), FOREIGN KEY (UserId) REFERENCES twitter_users (UserId))")
 
       # Check how many rows in DB Table
@@ -75,12 +75,11 @@ def twitterTable(usernames):
             cur.execute("SELECT * FROM twitter WHERE TweetId = (SELECT MAX(TweetId) FROM twitter)")
             data_count = cur.fetchone()[0] + 1     
       
-      name_count = 1
-
       for name in usernames:
             # Scrape Twitter based upon username
             data = twitterData(name)
-
+            cur.execute("SELECT UserId FROM twitter_users WHERE twitter_users.Username = '{}'".format(name))
+            name_count = cur.fetchone()[0]
             # Setup database
             for row in range(len(data)):
                   cur.execute("INSERT INTO twitter (TweetId, TweetNum, Tweet, Timestamp, UserId) VALUES (?,?,?,?,?)", (data_count, data[row][0], data[row][1], data[row][2], name_count,))
@@ -92,14 +91,20 @@ def twitterTable(usernames):
             
 
 # Setup DB
-cur, conn = setUpDatabase('twitter.db')
+def fillAllTwitterTables():
+      cur, conn = setUpDatabase('finalProject.db')
 
-# Usernames from Twitter to scrape Tweets from 
-# NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
-usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
+      # Usernames from Twitter to scrape Tweets from 
+      # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
+      usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
 
-twitterUsersTable(usernames)
-twitterTable(usernames)
+      twitterUsersTable(usernames, cur, conn)
+      twitterTable(usernames, cur, conn)
+
+fillAllTwitterTables()
+
+# To run twitter.py, navigate to twitter directory 
+# Type python3 twitter.py
 
 
 
