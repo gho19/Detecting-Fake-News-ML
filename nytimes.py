@@ -20,7 +20,7 @@ args = parser.parse_args()
 # puts that text content into the database
 
 API_KEY = "JdfhwcfpxaR5uHaqRSpZMSxuxsA78twm"
-good_section_names = ['U.S.', 'World', 'Science', 'Today’s Paper', 'New York', 'Health', 'Politics']
+good_section_names = ['U.S.', 'World', 'Science', 'Today\'s Paper', 'New York', 'Health', 'Politics']
 
 def parsePubDate(pubDate):
     #2015-01-01T00:03:50+0000
