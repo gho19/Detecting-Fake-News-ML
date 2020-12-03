@@ -18,6 +18,46 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
+
+def getHighestId(cur, conn, column_name, table_name):
+    cur.execute('SELECT {} FROM {}'.format(column_name, table_name))
+    
+    section_id_list = [int(tup[0]) for tup in cur.fetchall()]
+
+    if section_id_list != []: 
+        highest_id = max(section_id_list) + 1
+    
+    else:
+        highest_id = 0
+    
+    conn.commit()
+    return highest_id
+
+
+def getSourceID(cur, conn, source_name):
+    cur.execute('CREATE TABLE IF NOT EXISTS Sources (source_id INT, source_name TEXT)')
+    
+    cur.execute('SELECT source_id, source_name FROM Sources')
+    
+    id_name_tups = cur.fetchall()
+    source_ids = [tup[0] for tup in id_name_tups]
+    source_names = [tup[1] for tup in id_name_tups]
+
+    # if we already have this source in the sources_table
+    if source_name in source_names:
+        cur.execute('SELECT source_id FROM Sources WHERE Sources.source_name = "{}"'.format(source_name))
+        source_id = cur.fetchone()[0]
+        
+    # if we don't already have this source in the sources table
+    else:
+        highest_id = getHighestId(cur, conn, 'source_id', 'Sources')
+        cur.execute('INSERT INTO Sources (source_id, source_name) VALUES (?,?)', (highest_id, source_name))
+        source_id = highest_id
+    
+    conn.commit()
+    return source_id
+
+
 # Uses the TWITTER API (tweepy) to retrieve Tweets from a specified user.
 # This function gathers a unique Tweet ID, the Tweet text, and Timestamp of the Tweet
 # twitterData() takes a username as a parameter (i.e. realDonaldTrump)
@@ -48,11 +88,12 @@ def twitterData(user):
 # Creates table and uploads data to table called 'twitter_users' with UserId and Username as columns
 # twitterUsersTable() has a list of Twitter usernams as a parameter 
 def twitterUsersTable(usernames, cur, conn):
-      cur.execute("CREATE TABLE IF NOT EXISTS twitter_users (UserId INTEGER PRIMARY KEY, Username TEXT)")
+      cur.execute("DROP TABLE IF EXISTS Twitter_Users")
+      cur.execute("CREATE TABLE IF NOT EXISTS Twitter_Users (UserId INTEGER PRIMARY KEY, Username TEXT)")
 
       for name in range(len(usernames)):
-            cur.execute("INSERT INTO twitter_users (UserId, Username) VALUES (?,?)", (name + 1, usernames[name]))
-            print("Added new user to twitter_users table!")
+            cur.execute("INSERT INTO Twitter_Users (UserId, Username) VALUES (?,?)", (name, usernames[name]))
+            print("Added new user to Twitter_Users table!")
       conn.commit()
             
 
@@ -60,32 +101,34 @@ def twitterUsersTable(usernames, cur, conn):
 # twitterTable() has a list of Twitter usernams as a parameter 
 # The columns in the database are as follows: TweetId, Tweet, Timestamp, TweetNum, UserId
 def twitterTable(usernames, cur, conn):
-      cur.execute("CREATE TABLE IF NOT EXISTS twitter (TweetId INTEGER PRIMARY KEY, Tweet TEXT, Timestamp TEXT, TweetNum INTEGER, UserId INTEGER, UNIQUE(TweetNum), FOREIGN KEY (UserId) REFERENCES twitter_users (UserId))")
+      cur.execute("DROP TABLE IF EXISTS Twitter")
+      cur.execute("CREATE TABLE IF NOT EXISTS Twitter (TweetId INTEGER PRIMARY KEY, SourceId INTEGER, Tweet TEXT, Timestamp TEXT, TweetNum INTEGER, UserId INTEGER, UNIQUE(TweetNum), FOREIGN KEY (UserId) REFERENCES Twitter_Users (UserId))")
 
       # Check how many rows in DB Table
-      cur.execute('SELECT COUNT(*) from twitter')
+      cur.execute('SELECT COUNT(*) from Twitter')
       cur_result = cur.fetchone()
       rows = cur_result[0]
 
       # Count for IDs
       # Check how many rows in database to set TweetId
       if rows == 0: 
-            data_count = 1
+            data_count = 0
       else: 
-            cur.execute("SELECT * FROM twitter WHERE TweetId = (SELECT MAX(TweetId) FROM twitter)")
+            cur.execute("SELECT * FROM Twitter WHERE TweetId = (SELECT MAX(TweetId) FROM Twitter)")
             data_count = cur.fetchone()[0] + 1     
       
       for name in usernames:
             # Scrape Twitter based upon username
             data = twitterData(name)
-            cur.execute("SELECT UserId FROM twitter_users WHERE twitter_users.Username = '{}'".format(name))
+            cur.execute("SELECT UserId FROM Twitter_Users WHERE Twitter_Users.Username = '{}'".format(name))
             name_count = cur.fetchone()[0]
             # Setup database
             for row in range(len(data)):
-                  cur.execute("INSERT INTO twitter (TweetId, TweetNum, Tweet, Timestamp, UserId) VALUES (?,?,?,?,?)", (data_count, data[row][0], data[row][1], data[row][2], name_count,))
+                  sourceId = getSourceID(cur, conn, 'Twitter')
+                  cur.execute("INSERT INTO Twitter (TweetId, SourceId, TweetNum, Tweet, Timestamp, UserId) VALUES (?,?,?,?,?,?)", (data_count, sourceId, data[row][0], data[row][1], data[row][2], name_count,))
                   data_count += 1
             name_count += 1
-            print("Added 25 new Tweets to twitter table!")
+            print("Added 25 new Tweets to Twitter table!")
             conn.commit()
             time.sleep(5)
             

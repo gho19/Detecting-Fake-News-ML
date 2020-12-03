@@ -9,6 +9,45 @@ url = ('http://newsapi.org/v2/top-headlines?country=us&apiKey=61e924b119ab4e4294
 response = requests.get(url)
 data = response.json()
 
+def getSourceID(cur, conn, source_name):
+    cur.execute('CREATE TABLE IF NOT EXISTS Sources (source_id INT, source_name TEXT)')
+    
+    cur.execute('SELECT source_id, source_name FROM Sources')
+    
+    id_name_tups = cur.fetchall()
+    source_ids = [tup[0] for tup in id_name_tups]
+    source_names = [tup[1] for tup in id_name_tups]
+
+    # if we already have this source in the sources_table
+    if source_name in source_names:
+        cur.execute('SELECT source_id FROM Sources WHERE Sources.source_name = "{}"'.format(source_name))
+        source_id = cur.fetchone()[0]
+        
+    # if we don't already have this source in the sources table
+    else:
+        highest_id = getHighestId(cur, conn, 'source_id', 'Sources')
+        cur.execute('INSERT INTO Sources (source_id, source_name) VALUES (?,?)', (highest_id, source_name))
+        source_id = highest_id
+    
+    conn.commit()
+    return source_id
+
+
+def getHighestId(cur, conn, column_name, table_name):
+    cur.execute('SELECT {} FROM {}'.format(column_name, table_name))
+    
+    section_id_list = [int(tup[0]) for tup in cur.fetchall()]
+
+    if section_id_list != []: 
+        highest_id = max(section_id_list) + 1
+    
+    else:
+        highest_id = 0
+    
+    conn.commit()
+    return highest_id
+
+
 # Setups the database to store data gathered for SI 206 Final Project
 def setUpDatabase(db_name):
     path = os.path.dirname(os.path.abspath(__file__)).replace("/NewsAPI", '')
@@ -31,10 +70,11 @@ def newsApiData():
 
     return entries
 
+
 # Uploads data retrieved from the NEW API to 'news_api' table 
 # newsApiTable() has data, a list, as a parameter, which is the data returned from newsApiData() 
 def newsApiTable(data, cur, conn):
-    cur.execute("CREATE TABLE IF NOT EXISTS news_api (ArticleId INTEGER PRIMARY KEY, Title TEXT, Description TEXT, Timestamp TEXT, Url TEXT, Source TEXT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS news_api (ArticleId INTEGER PRIMARY KEY, Title TEXT, Description TEXT, Timestamp TEXT, Url TEXT, SourceId INTEGER)")
 
     # Check how many rows in DB Table
     cur.execute('SELECT COUNT(*) from news_api')
@@ -42,12 +82,14 @@ def newsApiTable(data, cur, conn):
     rows = cur_result[0]
 
     # Count for IDs
-    # Check how many rows in database to set TweetId
+    # Check how many rows in database to set ArticleId
     if rows == 0: 
-        data_count = 1
+        data_count = 0
         
         for entry in range(len(data)):
-            cur.execute("INSERT INTO news_api (ArticleId, Title, Description, Timestamp, Url, Source) VALUES (?,?,?,?,?,?)", (data_count, data[entry][1], data[entry][2], data[entry][3], data[entry][4], data[entry][0]))
+            #cur.execute("SELECT SourceId FROM news_api_sources WHERE news_api_sources.Source = '{}'".format(data[entry][0]))
+            sourceId = getSourceID(cur, conn, data[entry][0])
+            cur.execute("INSERT INTO news_api (ArticleId, Title, Description, Timestamp, Url, SourceId) VALUES (?,?,?,?,?,?)", (data_count, data[entry][1], data[entry][2], data[entry][3], data[entry][4], sourceId))
             data_count += 1
         print("Added 20 new headlines to news_api table!")
         conn.commit()
@@ -68,10 +110,13 @@ def newsApiTable(data, cur, conn):
         else: 
             # Upload data to table
             for entry in range(len(data)):
-                cur.execute("INSERT INTO news_api (ArticleId, Title, Description, Timestamp, Url, Source) VALUES (?,?,?,?,?,?)", (data_count, data[entry][1], data[entry][2], data[entry][3], data[entry][4], data[entry][0]))
+                # cur.execute("SELECT SourceId FROM news_api_sources WHERE news_api_sources.SourceId = '{}'".format(data[entry][0]))
+                sourceId = getSourceID(cur, conn, data[entry][0])
+                cur.execute("INSERT INTO news_api (ArticleId, Title, Description, Timestamp, Url, SourceId) VALUES (?,?,?,?,?,?)", (data_count, data[entry][1], data[entry][2], data[entry][3], data[entry][4], sourceId))
                 data_count += 1
             print("Added 20 new headlines to database!")
             conn.commit()
+
   
 def fillAllNewsApiTables():
     cur, conn = setUpDatabase('finalProject.db')
@@ -83,102 +128,8 @@ fillAllNewsApiTables()
 # To run news_api, navigate to news_api directory 
 # Type python3 news_api.py
 
-'''
-def newsApiSourcesTable(data):
-    cur.execute("CREATE TABLE IF NOT EXISTS news_api_sources (SourceId INTEGER, Source TEXT)")
-
-    # Check how many rows in DB Table
-    cur.execute('SELECT COUNT(*) from news_api_sources')
-    cur_result = cur.fetchone()
-    rows = cur_result[0]
-
-    source_list = []
-
-    # Count for IDs
-    # Check how many rows in database to set TweetId
-    if rows == 0: 
-        # Set SourceId count to 1
-        data_count = 1
-
-        # Only get unique list of sources
-        set_sources_list = []
-
-        # Gets all sources
-        for source in data:
-            set_sources_list.append(source[0])
-
-        set_sources_list = set(set_sources_list)
-
-        for source in set_sources_list:
-            source_list.append(source)
-
-        
-        # Adds data to table
-        for entry in range(len(source_list)):
-            cur.execute("INSERT INTO news_api_sources (Source, SourceId) VALUES (?,?)", (source_list[entry], data_count))
-            data_count += 1
-
-        conn.commit()
-
-    else: 
-        # Gets SourceId count
-        cur.execute("SELECT * FROM news_api_sources WHERE SourceId = (SELECT MAX(SourceId) FROM news_api_sources)")
-        data_count = cur.fetchone()[0] + 1 
-        print(data_count)
-
-        # Gets sources already in DB 
-        cur.execute("SELECT Source from news_api_sources")
-        set_sources_list = cur.fetchall()
-        set_sources_list = set(set_sources_list)
-        for source in set_sources_list:
-            source_list.append(source[0])
-
-        print(source_list)
-        print(len(source_list))
 
 
-        # Get potential new sources from data
-        new_set_sources_list = []
-        new_source_list = []
 
-        for source in data:
-            new_set_sources_list.append(source[0])
-
-        new_set_sources_list = set(new_set_sources_list)
-
-        for source in new_set_sources_list:
-            new_source_list.append(source)
-
-        print('\n\n' + 'Recently Scraped Sources')
-        print(new_source_list)
-        print(len(new_source_list))
-
-        counter = 0
-        for new_source in new_source_list:
-            for source in source_list:
-                if new_source == source:
-                    new_source_list.remove(new_source)
-
-
-        print('\n\n' + 'Only New Sources')
-        print(new_source_list)
-        print(len(new_source_list))
-
-        source_list = source_list + new_source_list
-
-        print('\n\n' + 'All Sources')
-        print(source_list)
-        print(len(source_list))
-
-        print('\n\n')
-        print("Data Counter")
-        print(data_count)
-        # Adds data to table
-        for i in range(data_count, len(source_list)):
-            cur.execute("INSERT INTO news_api_sources (Source, SourceId) VALUES (?,?)", (source_list[i], data_count))
-            data_count += 1
-
-        conn.commit()
-'''
 
 
