@@ -23,6 +23,31 @@ def connectToDB(db_name):
     return cur, conn
 
 
+def getSourceID(cur, conn, source_name):
+    cur.execute('CREATE TABLE IF NOT EXISTS Sources (source_id INT, source_name TEXT)')
+    
+    cur.execute('SELECT source_id, source_name FROM Sources')
+    
+    id_name_tups = cur.fetchall()
+    source_ids = [tup[0] for tup in id_name_tups]
+    source_names = [tup[1] for tup in id_name_tups]
+
+    # if we already have this source in the sources_table
+    if source_name in source_names:
+        cur.execute('SELECT source_id FROM Sources WHERE Sources.source_name = "{}"'.format(source_name))
+        source_id = cur.fetchone()[0]
+        
+    # if we don't already have this source in the sources table
+    else:
+        highest_id = getHighestId(cur, conn, 'source_id', 'Sources')
+        cur.execute('INSERT INTO Sources (source_id, source_name) VALUES (?,?)', (highest_id, source_name))
+        source_id = highest_id
+    
+    conn.commit()
+    return source_id
+
+
+
 # This script is collecting the URLS for all articles published by the New York Times
 # in 2015 and 2016 (before Trump and the first year of Trump). 
 # Then, there will be another script that scrapes the text content from each article URL and
@@ -67,6 +92,7 @@ def getHighestId(cur, conn, column_name, table_name):
     conn.commit()
     return highest_id
 
+
 def fillNYT_Sections_Table(cur, conn, list_sections, runIteration):
     if runIteration == 0:
         cur.execute('DROP TABLE IF EXISTS NYT_Sections')
@@ -90,13 +116,14 @@ def fillNYT_URL_Data_Table(cur, conn, data_dictionary, runIteration):
     if runIteration == 0:
         cur.execute('DROP TABLE IF EXISTS NYT_URL_Data')
     
-    cur.execute('CREATE TABLE IF NOT EXISTS NYT_URL_Data (article_id INT, url_extension TEXT, section_id INT, word_count INT, print_page INT, day INT, month INT, year INT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS NYT_URL_Data (source_id INT, article_id INT, url_extension TEXT, section_id INT, word_count INT, print_page INT, day INT, month INT, year INT)')
 
     # need to store the max section_id in the table right now
     highest_id = getHighestId(cur, conn, 'article_id', 'NYT_URL_Data')
 
     for i, url in enumerate(data_dictionary):
 
+        source_id = getSourceID(cur, conn, 'New York Times')
         article_id = i
         url_extension = url
 
@@ -116,7 +143,8 @@ def fillNYT_URL_Data_Table(cur, conn, data_dictionary, runIteration):
 
         year = data_dictionary[url]['year']
 
-        cur.execute('INSERT INTO NYT_URL_Data (article_id, url_extension, section_id, word_count, print_page, day, month, year) VALUES (?,?,?,?,?,?,?,?)', (article_id + highest_id, url_extension, section_id, word_count, print_page, day, month, year))
+        cur.execute('INSERT INTO NYT_URL_Data (source_id, article_id, url_extension, section_id, word_count, print_page, day, month, year) VALUES (?,?,?,?,?,?,?,?,?)', (source_id, article_id + highest_id, url_extension, section_id, word_count, print_page, day, month, year))
+        print('Inserted NYTimes article number {} into the NYTimes URL Data Table.\n'.format(i))
     
     conn.commit()
 
@@ -127,9 +155,9 @@ def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
     
     startingIndex = runIteration * 25
     
-    cur.execute('CREATE TABLE IF NOT EXISTS NYT_ArticleContent (article_id INT, article_content TEXT)')
+    cur.execute('CREATE TABLE IF NOT EXISTS NYT_ArticleContent (source_id INT, article_id INT, article_content TEXT)')
     
-    cur.execute('SELECT article_id, url_extension FROM NYT_URL_Data')
+    cur.execute('SELECT source_id, article_id, url_extension FROM NYT_URL_Data')
 
     # on runIteration 1, need to only select url_extensions 25 - 50
 
@@ -137,8 +165,9 @@ def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
 
     for tup in id_url_tuples[startingIndex:]:
         
-        article_id = tup[0]
-        article_url_extension = tup[1]
+        source_id = tup[0]
+        article_id = tup[1]
+        article_url_extension = tup[2]
 
         url = 'https://www.nytimes.com/' + article_url_extension
 
@@ -147,7 +176,8 @@ def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
             soup = bs(resp.text, 'html.parser')
             story_content = soup.find('section', {'name':"articleBody"}).text.replace('\n', '')
 
-            cur.execute('INSERT INTO NYT_ArticleContent (article_id, article_content) VALUES (?,?)', (article_id, story_content))
+            cur.execute('INSERT INTO NYT_ArticleContent (source_id, article_id, article_content) VALUES (?,?,?)', (source_id, article_id, story_content))
+            print('Scraped article content for NYTimes article number {} and insert into NYTimes Article Content Table.\n'.format(article_id))
         
         except:
             # print('Exception while handling NYT article number {}.\n'.format(article_id))
@@ -231,14 +261,6 @@ def getNYTURLDictionary(runIteration):
             # check to see if we have reached max_limit new things
             count += 1
             if count >= maxCount:
-                # BEGIN HELPER CODE
-                
-                print('RUN ITERATION: ', runIteration)
-                for url in all_data_dictionary:
-                    print(url)
-
-                # END HELPER CODE
-                # print(len(all_data_dictionary))
                 return all_data_dictionary
 
         # if there was a key error or some other issue, just continue onto the next dictionary
@@ -252,6 +274,7 @@ def getNYTURLDictionary(runIteration):
 def fillAllNYT_Tables(cur, conn, runIteration):
     
     # pull the data from NYTimes API and put it into a dictionary
+    print('Pulling data from the NYTimes API for run number {}\n'.format(runIteration + 1))
     nytimes_url_dictionary = getNYTURLDictionary(runIteration)
     # print(nytimes_url_dictionary)
 
@@ -261,12 +284,15 @@ def fillAllNYT_Tables(cur, conn, runIteration):
     for url in nytimes_url_dictionary:
         section_set.add(nytimes_url_dictionary[url]['section_name'])
     
+    print('Filling the NYTimes Section table with each unique section.\n')
     fillNYT_Sections_Table(cur, conn, list(section_set), runIteration)
 
     # fill the main URL Data dictionary
+    print('Filling the NYTimes URL Data table with data about each of the 25 articles.\n')
     fillNYT_URL_Data_Table(cur, conn, nytimes_url_dictionary, runIteration)
 
     # fill the Table with Article Content
+    print('Scraping article content for each of the 25 articles in the NYTimes URL Data table.\n')
     fillNYTimes_ArticleContent_Table(cur, conn, runIteration)
 
 def driveNYT_db(runIteration):
@@ -276,12 +302,12 @@ def driveNYT_db(runIteration):
 driveNYT_db(args.numRuns)
 
 # HOW TO RUN THIS PROGRAM AT THE COMMAND LINE:
-# 1) python nytimes.py --numRuns 0 (25 Articles for January 2015)
-# 2) python nytimes.py --numRuns 1 (25 Articles for February 2015)
-# 3) python nytimes.py --numRuns 2 (25 Articles for March 2015)
-# 4) python nytimes.py --numRuns 3 (25 Articles for April 2015)
+# 1) python NYTimes/nytimes.py --numRuns 0 (25 Articles for January 2015)
+# 2) python NYTimes/nytimes.py --numRuns 1 (25 Articles for February 2015)
+# 3) python NYTimes/nytimes.py --numRuns 2 (25 Articles for March 2015)
+# 4) python NYTimes/nytimes.py --numRuns 3 (25 Articles for April 2015)
 #    ....
-# 24) python nytimes.py --numRuns 23 (25 Articles for December 2016)
+# 24) python NYTimes/nytimes.py --numRuns 23 (25 Articles for December 2016)
 
 
 

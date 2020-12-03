@@ -25,6 +25,31 @@ def setUpDatabase(db_name):
     cur = conn.cursor()
     return cur, conn
 
+def getSourceID(cur, conn, source_name):
+    cur.execute('CREATE TABLE IF NOT EXISTS Sources (source_id INT, source_name TEXT)')
+    
+    cur.execute('SELECT source_id, source_name FROM Sources')
+    
+    id_name_tups = cur.fetchall()
+    source_ids = [tup[0] for tup in id_name_tups]
+    source_names = [tup[1] for tup in id_name_tups]
+
+    # if we already have this source in the sources_table
+    if source_name in source_names:
+        cur.execute('SELECT source_id FROM Sources WHERE Sources.source_name = "{}"'.format(source_name))
+        source_id = cur.fetchone()[0]
+        
+    # if we don't already have this source in the sources table
+    else:
+        highest_id = getHighestId(cur, conn, 'source_id', 'Sources')
+        cur.execute('INSERT INTO Sources (source_id, source_name) VALUES (?,?)', (highest_id, source_name))
+        source_id = highest_id
+    
+    conn.commit()
+    return source_id
+
+
+
 def getHighestId(cur, conn, column_name, table_name):
     cur.execute('SELECT {} FROM {}'.format(column_name, table_name))
     
@@ -120,7 +145,7 @@ def fillWSJ_URL_Table(cur, conn, driver, month, day):
 
             # THIS IS A DUMMY VALUE
             # Once the News_Sources table is set up, query that table to figure out what the ID is for the WSJ    
-            source_id = 1
+            source_id = getSourceID(cur, conn, 'Wall Street Journal')
 
             cur.execute('INSERT INTO WSJ_URL_Data (source_id, article_id, url_extension, day, month, year) VALUES (?, ?, ?, ?, ?, ?)', (source_id, article_id, url, day, month, 2020))
 
@@ -173,7 +198,7 @@ def fillWSJArticleContentTable(cur, conn, driver, month, day):
             # scrape the article content and replace all new lines with a space (so text is all on one line)
             articleContent = driver.find_element_by_class_name("article-content  ").text.replace('\n', ' ')
             cur.execute('INSERT INTO WSJ_Article_Content (article_id, article_content) VALUES (?, ?)', (article_id, articleContent))
-            print('Scraped Wall Street Journal article content for article number {}.\n'.format(article_id))
+            print('Scraped Wall Street Journal article content for article number {}.\n'.format(article_id + 1))
 
 
         except:
@@ -216,8 +241,9 @@ def driveWSJ_db(month, day):
 
 driveWSJ_db(args.month, args.day)
 
+# HOW TO RUN THIS PROGRAM:
 
-# python wsj.py --month 7 --day 1 (25 Articles for July 1 2020)
-# python wsj.py --month 7 --day 2 (25 Articles for July 2 2020)
+# python WSJ/wsj.py --month 7 --day 1 (25 Articles for July 1 2020)
+# python WSJ/wsj.py --month 7 --day 2 (25 Articles for July 2 2020)
 # ... 
-# python python wsj.py --month 11 --day 29 (25 Articles for November 29 2020)
+# python WSJ/wsj.py --month 11 --day 29 (25 Articles for November 29 2020)
