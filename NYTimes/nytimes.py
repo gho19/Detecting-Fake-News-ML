@@ -8,10 +8,9 @@ import sqlite3
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--enforceLimit', default=False, action='store_true', required=True)
-parser.add_argument('--numRuns', type=int, choices=[x for x in range(5)], required=True)
+parser.add_argument('--numRuns', type=int, choices=[x for x in range(25)], required=True)
 args = parser.parse_args()
-
+print(args)
 
 
 # going to need this function at the top of all our files that insert data into the database
@@ -51,6 +50,7 @@ def getNewSections(cur, conn, list_sections):
         if section not in all_sections:
             new_sections.append(section)
     
+    conn.commit()
     return new_sections
     
 def getHighestId(cur, conn, column_name, table_name):
@@ -64,6 +64,7 @@ def getHighestId(cur, conn, column_name, table_name):
     else:
         highest_id = 0
     
+    conn.commit()
     return highest_id
 
 def fillNYT_Sections_Table(cur, conn, list_sections, runIteration):
@@ -124,13 +125,17 @@ def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
     if runIteration == 0:
         cur.execute('DROP TABLE IF EXISTS NYT_ArticleContent')
     
+    startingIndex = runIteration * 25
+    
     cur.execute('CREATE TABLE IF NOT EXISTS NYT_ArticleContent (article_id INT, article_content TEXT)')
     
     cur.execute('SELECT article_id, url_extension FROM NYT_URL_Data')
 
+    # on runIteration 1, need to only select url_extensions 25 - 50
+
     id_url_tuples = cur.fetchall()
 
-    for tup in id_url_tuples:
+    for tup in id_url_tuples[startingIndex:]:
         
         article_id = tup[0]
         article_url_extension = tup[1]
@@ -145,100 +150,109 @@ def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
             cur.execute('INSERT INTO NYT_ArticleContent (article_id, article_content) VALUES (?,?)', (article_id, story_content))
         
         except:
-            print('Exception while handling NYT article number {}.\n'.format(article_id))
+            # print('Exception while handling NYT article number {}.\n'.format(article_id))
             continue
 
     conn.commit()
 
 
-def getNYTURLDictionary(enforceLimit, runIteration):
+def getNYTURLDictionary(runIteration):
 
     all_data_dictionary = {}
-
-    if enforceLimit:
-        count = 0
-        startingIndex = runIteration * 26
-        maxCount = 25
+    date_dictionary = {}
+    
+    month = runIteration + 1
+    count = 0
+    maxCount = 25
+    
+    if month >= 1 and month <= 12:
+        year = 2015
     else:
-        startingIndex = 110
-        maxCount = 1000
+        year = 2016
+        month = month - 12
+            
+    # sleep for a second so we don't overwhelm the API
+    time.sleep(1)
 
-    
-    # loop through the years 2015 and 2016
-    for year in range(2015, 2017)[:1]:
-        # loop through every other month between january and december
-        for month in range(1, 13, 2)[:1]:
-            date_dictionary = {}
+    # format the base url with the correct date and API key
+    base_url = "https://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}".format(str(year), str(month), API_KEY)
 
-            # sleep for a second so we don't overwhelm the API
-            time.sleep(1)
+    # make a request to the server
+    resp = requests.get(base_url)
 
-            # format the base url with the correct date and API key
-            base_url = "https://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}".format(str(year), str(month), API_KEY, 20)
+    # turn the response request into a dictionary of data
+    data_dict = json.loads(resp.text)
 
-            # make a request to the server
-            resp = requests.get(base_url)
+    # iterate over each mini dictionary in the response
+    # for mini_dict in data_dict["response"]["docs"][startingIndex:]:
+    for mini_dict in data_dict["response"]["docs"]:
+        
+        # try to pull out the correct data from the dictionary
+        try:
+            
+            # get the url extension for this article
+            url = mini_dict["web_url"].strip('https://www.nytimes.com/')
+            # print(url)
+            
+            # get the date this article was published
+            pub_date = mini_dict['pub_date']
 
-            # turn the response request into a dictionary of data
-            data_dict = json.loads(resp.text)
+            # parse the date into a better format
+            day, month, year = parsePubDate(pub_date)
 
-            # iterate over each mini dictionary in the response
-            for mini_dict in data_dict["response"]["docs"][startingIndex:]:
+            # get the name of the section that this article belongs to
+            section_name = mini_dict['section_name']
+
+            # get rid of articles that aren't politically related at all
+            if section_name not in good_section_names:
+                continue
+            
+            # checking to make sure we only get 2 articles (at most) from each day
+            day_month_year_string = '{}/{}/{}'.format(day, month, year)
+            
+            if day_month_year_string not in date_dictionary:
+                date_dictionary[day_month_year_string] = 1
+            
+            else:
+                date_dictionary[day_month_year_string] += 1
                 
-                # try to pull out the correct data from the dictionary
-                try:
-                    # get the url extension for this article
-                    url = mini_dict["web_url"].strip('https://www.nytimes.com/')
-                    # print(url)
-                    
-                    # get the date this article was published
-                    pub_date = mini_dict['pub_date']
-
-                    # parse the data into a better formula
-                    day, month, year = parsePubDate(pub_date)
-
-                    # get the name of the section that this article belongs to
-                    section_name = mini_dict['section_name']
-
-                    # get rid of articles that aren't politically related at all
-                    if section_name not in good_section_names:
-                        continue
-                    
-                    # checking to make sure we only get 2 articles (at most) from each day
-                    day_month_year_string = '{}/{}/{}'.format(day, month, year)
-                    if day_month_year_string not in date_dictionary:
-                        date_dictionary[day_month_year_string] = 1
-                    else:
-                        date_dictionary[day_month_year_string] += 1
-                        if date_dictionary[day_month_year_string] > 2:
-                            continue
-
-                    # get the wordCount for this article
-                    wordCount = int(mini_dict['word_count'])
-
-                    # get the page number that this article was printed on
-                    printPage = int(mini_dict['print_page'])
-                    
-                    # add a new entry to the dictionary for this article
-                    all_data_dictionary[url] = {'section_name': section_name, 'word_count': wordCount, 'print_page': printPage, 'day': day, 'month': month, 'year': year}
-                    
-                    # check to see if we have reached 25 new things
-                    if enforceLimit:
-                        count += 1
-                        if count >= maxCount:
-                            return all_data_dictionary
-
-                # if there was a key error or some other issue, just continue onto the next dictionary
-                except:
+                if date_dictionary[day_month_year_string] > 2:
                     continue
-    
+
+            # get the wordCount for this article
+            wordCount = int(mini_dict['word_count'])
+
+            # get the page number that this article was printed on
+            printPage = int(mini_dict['print_page'])
+            
+            # add a new entry to the dictionary for this article
+            all_data_dictionary[url] = {'section_name': section_name, 'word_count': wordCount, 'print_page': printPage, 'day': day, 'month': month, 'year': year}
+            
+            # check to see if we have reached max_limit new things
+            count += 1
+            if count >= maxCount:
+                # BEGIN HELPER CODE
+                
+                print('RUN ITERATION: ', runIteration)
+                for url in all_data_dictionary:
+                    print(url)
+
+                # END HELPER CODE
+                # print(len(all_data_dictionary))
+                return all_data_dictionary
+
+        # if there was a key error or some other issue, just continue onto the next dictionary
+        except:
+            # print('Exception while handling NYTimes dictionary data.\n')
+            continue
+
     return all_data_dictionary
 
 
-def fillAllNYT_Tables(cur, conn, enforceLimit, runIteration):
+def fillAllNYT_Tables(cur, conn, runIteration):
     
     # pull the data from NYTimes API and put it into a dictionary
-    nytimes_url_dictionary = getNYTURLDictionary(enforceLimit, runIteration)
+    nytimes_url_dictionary = getNYTURLDictionary(runIteration)
     # print(nytimes_url_dictionary)
 
     # fill the section_id table with data from the dictionary
@@ -252,22 +266,22 @@ def fillAllNYT_Tables(cur, conn, enforceLimit, runIteration):
     # fill the main URL Data dictionary
     fillNYT_URL_Data_Table(cur, conn, nytimes_url_dictionary, runIteration)
 
-    # # fill the Table with Article Content
+    # fill the Table with Article Content
     fillNYTimes_ArticleContent_Table(cur, conn, runIteration)
 
-def driveNYT_db(enforceLimit = True, runIteration = 0):
+def driveNYT_db(runIteration):
     cur, conn = connectToDB('finalProject.db')
-    fillAllNYT_Tables(cur, conn, enforceLimit, runIteration)
+    fillAllNYT_Tables(cur, conn, runIteration)
 
-driveNYT_db(args.enforceLimit, args.numRuns)
+driveNYT_db(args.numRuns)
 
-# HOW TO RUN THIS PROGRAM AT THE COMMAND LINE!!!
-
-# python nytimes.py --enforceLimit --numRuns 0
-# python nytimes.py --enforceLimit --numRuns 1
-# python nytimes.py --enforceLimit --numRuns 2
-# python nytimes.py --enforceLimit --numRuns 3
-# python nytimes.py --numRuns 4
+# HOW TO RUN THIS PROGRAM AT THE COMMAND LINE:
+# 1) python nytimes.py --numRuns 0 (25 Articles for January 2015)
+# 2) python nytimes.py --numRuns 1 (25 Articles for February 2015)
+# 3) python nytimes.py --numRuns 2 (25 Articles for March 2015)
+# 4) python nytimes.py --numRuns 3 (25 Articles for April 2015)
+#    ....
+# 24) python nytimes.py --numRuns 23 (25 Articles for December 2016)
 
 
 

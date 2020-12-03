@@ -47,12 +47,15 @@ def classifier(text):
     return "Fake News" if predict[0] else "True News"
 
 
+lst_strings = ['''
 
+Mario M. Cuomo, the three-term governor of New York who commanded the attention of the country with a compelling public presence, a forceful defense of liberalism and his exhaustive ruminations about whether to run for president, died on Thursday at his home in Manhattan. He was 82.His family confirmed the death, which occurred only hours after Mr. Cuomo’s son Andrew M. Cuomo was inaugurated in Manhattan for a second term as governor. The cause was heart failure.Mario Cuomo led New York during a turbulent time, 1983 through 1994. His ambitions for an activist government were thwarted by recession. He found himself struggling with the State Legislature not over what the government should do but over what programs should be cut, and what taxes should be raised, simply to balance the budget.Still, no matter the problems he found in Albany, Mr. Cuomo burst beyond the state’s boundaries to personify the liberal wing of his national party and become a source of unending fascination and, ultimately, frustration for Democrats, whose leaders twice pressed him to run for president, in 1988 and 1992, to no avail.In an era when liberal thought was increasingly discredited, 
+Mr. Cuomo, a man of large intellect and often unrestrained personality, celebrated it, 
+challenging Ronald Reagan at the height of his presidency with an expansive and affirmative 
+'''
+]
 
-
-
-
-
+print(classifier(lst_strings))
 
 
 

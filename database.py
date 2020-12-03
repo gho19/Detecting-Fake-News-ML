@@ -51,10 +51,10 @@ def setUpDatabase(db_name):
 
 
 
-def main():
-    cur, conn = setUpDatabase('finalProject.db')
-    conn.close()
+# def main():
+#     cur, conn = setUpDatabase('finalProject.db')
+#     conn.close()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
