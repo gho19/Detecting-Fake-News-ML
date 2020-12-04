@@ -92,13 +92,14 @@ def twitterTable(usernames, cur, conn):
 # Setup DB
 def fillAllTwitterTables():
       cur, conn = database.setUpDatabase('finalProject.db')
+      database.compileCalculationTable(cur, conn)
 
-      # Usernames from Twitter to scrape Tweets from 
-      # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
-      usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
+      # # Usernames from Twitter to scrape Tweets from 
+      # # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
+      # usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
 
-      twitterUsersTable(usernames, cur, conn)
-      twitterTable(usernames, cur, conn)
+      # twitterUsersTable(usernames, cur, conn)
+      # twitterTable(usernames, cur, conn)
 
 fillAllTwitterTables()
 

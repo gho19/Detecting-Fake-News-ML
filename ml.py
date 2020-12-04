@@ -33,7 +33,7 @@ Naive.fit(X_train_counts, y_train)
 predictions_NB = Naive.predict(X_test)
 
 # Use accuracy_score function to get the accuracy
-print('Accuracy Score:', accuracy_score(predictions_NB, y_test) * 100)
+# print('Accuracy Score:', accuracy_score(predictions_NB, y_test) * 100)
 
 # classifier() takes text, a list of strings, as a parameter 
 # This function classifies text as 'Fake News' or 'True News' 
@@ -44,8 +44,15 @@ def classifier(text):
     word_vec = count_vect.transform(text) 
     
     predict = Naive.predict(word_vec)
-    return "Fake News" if predict[0] else "True News"
-
+    return 0 if predict[0] else 1
+# def classifier(list_article_content):
+#     Naive = MultinomialNB()
+#     Naive.fit(X_train_counts, y_train)
+    
+#     word_vec = count_vect.transform(text) 
+    
+#     predict = Naive.predict(word_vec)
+#     return 0 if predict[0] else 1
 
 
 # source_id, article_id, classified as real or fake, expected real or fake

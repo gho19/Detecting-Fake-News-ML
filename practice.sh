@@ -1,4 +1,4 @@
-for i in {0..3}
+for i in {0..23}
 do
     python nytimes.py --numRuns $i
     read -t 5

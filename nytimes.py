@@ -75,7 +75,7 @@ def fillNYT_URL_Data_Table(cur, conn, data_dictionary, runIteration):
 
     for i, url in enumerate(data_dictionary):
 
-        source_id = database.getSourceID(cur, conn, 'New York Times')
+        source_id = database.getSourceID(cur, conn, 'The New York Times')
         article_id = i
         url_extension = url
 

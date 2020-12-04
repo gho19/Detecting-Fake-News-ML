@@ -99,7 +99,7 @@ def fillWSJ_URL_Table(cur, conn, driver, month, day):
 
             # THIS IS A DUMMY VALUE
             # Once the News_Sources table is set up, query that table to figure out what the ID is for the WSJ    
-            source_id = database.getSourceID(cur, conn, 'Wall Street Journal')
+            source_id = database.getSourceID(cur, conn, 'The Wall Street Journal')
 
             cur.execute('INSERT INTO WSJ_URL_Data (source_id, article_id, url_extension, day, month, year) VALUES (?, ?, ?, ?, ?, ?)', (source_id, article_id, url, day, month, 2020))
 
@@ -124,13 +124,15 @@ def fillWSJArticleContentTable(cur, conn, driver, month, day):
     if month == 7 and day == 1:
         cur.execute('DROP TABLE IF EXISTS WSJ_Article_Content')
     
-    cur.execute('CREATE TABLE IF NOT EXISTS WSJ_Article_Content (article_id INT, article_content TEXT UNIQUE)')
+    cur.execute('CREATE TABLE IF NOT EXISTS WSJ_Article_Content (source_id INT, article_id INT, article_content TEXT UNIQUE)')
     # cur.execute('DROP TABLE IF EXISTS Kaggle')
     
     cur.execute('SELECT article_id, url_extension FROM WSJ_URL_Data WHERE WSJ_URL_Data.month = "{}" and WSJ_URL_Data.day = "{}"'.format(month, day))
     
     # for every row in WSJ_URL_Data, fetch article_id and article_url
     urlTuples = cur.fetchall()
+
+    sourceId = database.getSourceID(cur, conn, 'The Wall Street Journal')
 
     # for each article's tuple of data in WSJ_URL_Data
     for tup in urlTuples:
@@ -151,7 +153,7 @@ def fillWSJArticleContentTable(cur, conn, driver, month, day):
 
             # scrape the article content and replace all new lines with a space (so text is all on one line)
             articleContent = driver.find_element_by_class_name("article-content  ").text.replace('\n', ' ')
-            cur.execute('INSERT INTO WSJ_Article_Content (article_id, article_content) VALUES (?, ?)', (article_id, articleContent))
+            cur.execute('INSERT INTO WSJ_Article_Content (source_id, article_id, article_content) VALUES (?,?, ?)', (sourceId, article_id, articleContent))
             print('Scraped Wall Street Journal article content for article number {}.\n'.format(article_id + 1))
 
 
@@ -165,7 +167,7 @@ def fillWSJArticleContentTable(cur, conn, driver, month, day):
 def driveWSJ_db(month, day):
     # CHASE: /Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT
     # GRANT: /Users/gho/Desktop/SI-206/Projects/FinalProject/SI206-FINAL-PROJECT
-    driver = getChromeDriver("/Users/gho/Desktop/SI-206/Projects/FinalProject/SI206-FINAL-PROJECT/chromedriver_2", True)
+    driver = getChromeDriver("/Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT/chromedriver_2", True)
     login_url = "https://accounts.wsj.com/login?target=https%3A%2F%2Fwww.wsj.com%2Fnews%2Farchive%2F2020%2F11%2F27"
 
     try:
