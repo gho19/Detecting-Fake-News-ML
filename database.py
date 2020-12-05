@@ -36,6 +36,9 @@ Naive.fit(X_train_counts, y_train)
 # Predict the labels on validation dataset
 predictions_NB = Naive.predict(X_test)
 
+# classifier() takes text, a list of strings, as a parameter 
+# This function classifies text as 'Fake News' or 'True News'
+# Return 0 for Fake News and 1 for True News
 def classifier(text):
     Naive = MultinomialNB()
     Naive.fit(X_train_counts, y_train)
