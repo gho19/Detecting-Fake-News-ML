@@ -1,7 +1,5 @@
 import requests
 import json
-from bs4 import BeautifulSoup as bs
-import csv
 import time
 import random
 from selenium import webdriver
@@ -169,7 +167,7 @@ def fillWSJArticleContentTable(cur, conn, driver, month, day):
 def driveWSJ_db(month, day):
     # CHASE: /Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT
     # GRANT: /Users/gho/Desktop/SI-206/Projects/FinalProject/SI206-FINAL-PROJECT
-    driver = getChromeDriver("/Users/gho/Desktop/SI-206/Projects/FinalProject/SI206-FINAL-PROJECT/chromedriver_2", True)
+    driver = getChromeDriver(os.path.dirname(os.path.abspath(__file__)) + '/' + 'chromedriver_2', True)
     login_url = "https://accounts.wsj.com/login?target=https%3A%2F%2Fwww.wsj.com%2Fnews%2Farchive%2F2020%2F11%2F27"
 
     try:
