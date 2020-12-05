@@ -28,6 +28,7 @@ def newsApiData():
 
 # Uploads data retrieved from the NEW API to 'News_API' table 
 # newsApiTable() has data, a list, as a parameter, which is the data returned from newsApiData() 
+# and curr + conn (for connecting to database)
 def newsApiTable(data, cur, conn):
     cur.execute("CREATE TABLE IF NOT EXISTS News_API (ArticleId INTEGER PRIMARY KEY, Title TEXT, Description TEXT, Timestamp TEXT, Url TEXT, SourceId INTEGER)")
 
@@ -70,7 +71,7 @@ def newsApiTable(data, cur, conn):
             print("Added 20 new headlines to database!")
             conn.commit()
 
-  
+# Connects to database and inserts data into 'News_API' table  
 def fillAllNewsApiTables():
     cur, conn = database.setUpDatabase('finalProject.db')
     data = newsApiData()

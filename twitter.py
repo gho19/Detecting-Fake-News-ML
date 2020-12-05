@@ -42,7 +42,7 @@ def twitterData(user):
 
 
 # Creates table and uploads data to table called 'twitter_users' with UserId and Username as columns
-# twitterUsersTable() has a list of Twitter usernams as a parameter 
+# twitterUsersTable() has a list of Twitter usernams as a parameter and curr + conn (for connecting to database)
 def twitterUsersTable(usernames, cur, conn):
       cur.execute("DROP TABLE IF EXISTS Twitter_Users")
       cur.execute("CREATE TABLE IF NOT EXISTS Twitter_Users (UserId INTEGER PRIMARY KEY, Username TEXT)")
@@ -54,7 +54,7 @@ def twitterUsersTable(usernames, cur, conn):
             
 
 # Creates table and adds data scraped from TWITTER API to 'twitter'
-# twitterTable() has a list of Twitter usernams as a parameter 
+# twitterTable() has a list of Twitter usernames as a parameter and curr + conn (for connecting to database)
 # The columns in the database are as follows: TweetId, Tweet, Timestamp, TweetNum, UserId
 def twitterTable(usernames, cur, conn):
       cur.execute("DROP TABLE IF EXISTS Twitter")
@@ -89,17 +89,15 @@ def twitterTable(usernames, cur, conn):
             time.sleep(5)
             
 
-# Setup DB
+# Connects to database and inserts data into 'Twitter' table  
 def fillAllTwitterTables():
       cur, conn = database.setUpDatabase('finalProject.db')
-      database.compileCalculationTable(cur, conn)
 
-      # # Usernames from Twitter to scrape Tweets from 
-      # # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
-      # usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
-
-      # twitterUsersTable(usernames, cur, conn)
-      # twitterTable(usernames, cur, conn)
+      # Usernames from Twitter to scrape Tweets from 
+      # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
+      usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
+      twitterUsersTable(usernames, cur, conn)
+      twitterTable(usernames, cur, conn)
 
 fillAllTwitterTables()
 
