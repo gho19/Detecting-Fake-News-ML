@@ -11,7 +11,7 @@ import database
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--numRuns', type=int, choices=[x for x in range(25)], required=True)
+parser.add_argument('--numRuns', type=int, choices=[x for x in range(24)], required=True)
 args = parser.parse_args()
 
 # This script is collecting the URLS for all articles published by the New York Times
@@ -22,6 +22,11 @@ args = parser.parse_args()
 API_KEY = "JdfhwcfpxaR5uHaqRSpZMSxuxsA78twm"
 good_section_names = ['U.S.', 'World', 'Science', 'Today\'s Paper', 'New York', 'Health', 'Politics']
 
+
+# This function takes as input an article's publication date in the format
+# returned by the NYTimes API, and then parses that date into a more
+# readable format to be used later in the script. Returns a tuple which
+# consists of an integer day, month, and year for this publication.
 def parsePubDate(pubDate):
     #2015-01-01T00:03:50+0000
     split_date = pubDate.split('-')
@@ -30,6 +35,13 @@ def parsePubDate(pubDate):
     day = int(split_date[2].split('T')[0])
     return day, month, year
 
+
+# This function takes as inputs cur and conn so we can successfully
+# connect to the database. Additionally, it takes in a list of
+# NYT sections that we have gotten from the NYT API. Then, it calculates
+# all of the sections that are already in the table, and finds any new sections
+# that we want to add to the table because they aren't in there yet. It returns 
+# this new list of sections to be added to the database.
 def getNewSections(cur, conn, list_sections):
     cur.execute('SELECT section_name FROM NYT_Sections')
     
@@ -45,6 +57,13 @@ def getNewSections(cur, conn, list_sections):
     return new_sections
 
 
+
+# This function takes in cur and conn so we can successfully connect to
+# the database. Additionally, it takes in a list of NYT sections to be
+# added to the database and an integer representing the number of times
+# this script has been run, parsed using the argparse library. It does
+# not return anything but instead adds data into the NYT_Sections table in 
+# the database.
 def fillNYT_Sections_Table(cur, conn, list_sections, runIteration):
     if runIteration == 0:
         cur.execute('DROP TABLE IF EXISTS NYT_Sections')
@@ -64,6 +83,12 @@ def fillNYT_Sections_Table(cur, conn, list_sections, runIteration):
     conn.commit()
 
 
+# This function takes as inputs a connection to the database along with
+# a dictionary containing data about NYT articles pulled from the NYT. Additionally,
+# it takes an integer representing the number of times this script has been run, 
+# parsed from the command line using argparse. It does
+# not return anything but instead adds data into the NYT_URL_Data table in 
+# the database from the data_dictionary it recieves as input. Returns None.
 def fillNYT_URL_Data_Table(cur, conn, data_dictionary, runIteration):
     if runIteration == 0:
         cur.execute('DROP TABLE IF EXISTS NYT_URL_Data')
@@ -100,7 +125,12 @@ def fillNYT_URL_Data_Table(cur, conn, data_dictionary, runIteration):
     
     conn.commit()
 
-
+# This function takes a connection to the database and an integer 
+# representing the number of times this script has been run, 
+# parsed from the command line using argparse. It pulls all of the 
+# article_urls from NYT_URL_Data and uses BS to navigate to that URL
+# and scrape the article content from the page. It then adds that
+# article content to a table in the database. Returns None.
 def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
     if runIteration == 0:
         cur.execute('DROP TABLE IF EXISTS NYT_ArticleContent')
@@ -137,7 +167,11 @@ def fillNYTimes_ArticleContent_Table(cur, conn, runIteration):
 
     conn.commit()
 
-
+# This is the function that gets data from the NYT API. It takes an integer
+# as input representing the number of times the script has been run, parsed from the
+# command line. Depending on how many times the script has been run, it pulls data about
+# 25 articles from this month down from the API. Converts this JSON data to a python dict
+# and returns the dictionary.
 def getNYTURLDictionary(runIteration):
 
     all_data_dictionary = {}
@@ -222,7 +256,10 @@ def getNYTURLDictionary(runIteration):
 
     return all_data_dictionary
 
-
+# This is the driver function for the NYT section of the database, taking as input
+# a connection to the database and an integer for the amount of times the script has
+# been run. It calls all of the functions outlined above to make sure we collect
+# and store all of the correct data in the database. Returns None.
 def fillAllNYT_Tables(cur, conn, runIteration):
     
     # pull the data from NYTimes API and put it into a dictionary
@@ -247,6 +284,9 @@ def fillAllNYT_Tables(cur, conn, runIteration):
     print('Scraping article content for each of the 25 articles in the NYTimes URL Data table.\n')
     fillNYTimes_ArticleContent_Table(cur, conn, runIteration)
 
+# This is the primary drivary for the NYT database. Gets the runIteration
+# from the command line and calls all of the functions according to the
+# number of times that the script has been run already. Returns None.
 def driveNYT_db(runIteration):
     cur, conn = database.setUpDatabase('finalProject.db')
     fillAllNYT_Tables(cur, conn, runIteration)

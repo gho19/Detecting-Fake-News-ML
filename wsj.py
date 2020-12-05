@@ -17,8 +17,6 @@ parser.add_argument('--month', type=int, choices=[x for x in range(7, 12)], requ
 parser.add_argument('--day', type=int, choices=[x for x in range(1, 30)], required=True)
 args = parser.parse_args()
 
-
-
 # Initializes this instance of Chromedriver. Takes in the path to the chromedriver
 # as well as an option to make the driver headless or not. If headless, the instance
 # of chrome will not physically appear on your computer, similar to the way BeautifulSoup
