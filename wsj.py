@@ -21,7 +21,7 @@ args = parser.parse_args()
 # as well as an option to make the driver headless or not. If headless, the instance
 # of chrome will not physically appear on your computer, similar to the way BeautifulSoup
 # operates. If not headless, the chrome window will pop up on your computer and user will
-# be able to see the script moving around the page and typing things.
+# be able to see the script moving around the page and typing things. Returns a chromedriver instance.
 def getChromeDriver(path, headless = False):
     
     if headless:
@@ -36,7 +36,7 @@ def getChromeDriver(path, headless = False):
 
 # Given a chromedriver, navigates to the Wall Street Journal's login page and
 # signs in with the email and password parameters. Need to sign in so we can 
-# access the full article content.
+# access the full article content. Returns None.
 def loginWSJ(driver, base_url, email, password):
 
     print('Logging into the Wall Street Journal!\n')
@@ -55,12 +55,13 @@ def loginWSJ(driver, base_url, email, password):
 
     time.sleep(5)
 
+# Takes in a connection to the database as input, along with a chromedriver instance
+# and an integer for the month and day we are trying to scrape.
 # Creates a new table in the database to hold data about each of the WSJ articles
 # from July 2020 to November 2020 we will eventually be scraping. Table has columns source_id 
 # (unique integer for the WSJ), article_id (unique integer for each WSJ article), url_extension 
 # (url to get to each article), day, month, and year that the article was published.
-# Fills this table with five articles from each day in 7/2020 through 11/2020.
-
+# Fills this table with five articles from each day in 7/2020 through 11/2020. Returns None.
 def fillWSJ_URL_Table(cur, conn, driver, month, day):
     # create the table w/ the desired columns if it does not exist already
     # source_id, article_id, url_extension, day, month, year
@@ -111,10 +112,12 @@ def fillWSJ_URL_Table(cur, conn, driver, month, day):
     # commit the changes to the database
     conn.commit()        
 
+# Takes in a connection to the database as input, along with a chromedriver instance
+# and an integer for the month and day we are trying to scrape.
 # Creates a second table to store the actual content of each WSJ article.
 # Fetches the article_id and url_extension from WSJ_URL_Data table. Uses that 
 # url to go to the article's link, scrape the article, and fill a new table in the 
-# database which contains the article_id as well as the article_content.
+# database which contains the article_id as well as the article_content. Returns None, modifies the datbase.
 def fillWSJArticleContentTable(cur, conn, driver, month, day):
     # source_id (from table above), article_id (from table above), article_content (scraped with selenium)
     
@@ -161,7 +164,8 @@ def fillWSJArticleContentTable(cur, conn, driver, month, day):
     # commit the changes to the database
     conn.commit()
 
-# Drives all functions pertaining to the Wall Street Journal.
+# Drives all functions pertaining to the Wall Street Journal. Takes in a month and day 
+# as an integer so it knows what data to get using selenium.
 def driveWSJ_db(month, day):
     # CHASE: /Users/chasegoldman/Desktop/Michigan/Fall2020/SI206/SI206-FINAL-PROJECT
     # GRANT: /Users/gho/Desktop/SI-206/Projects/FinalProject/SI206-FINAL-PROJECT
