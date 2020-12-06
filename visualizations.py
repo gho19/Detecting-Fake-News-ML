@@ -179,6 +179,7 @@ def visualizeNYTPrintPageAvg(section_average_dict):
         y = values
     )]
     fig = go.Figure(data=data)
+    fig.update_traces(marker_color='rgb(35,199,172)')
     fig.show()
 
 # 6) For each source in the sources table, calculate the number of articles we have for that source
@@ -224,6 +225,7 @@ def visualizeNumArticlesPerSource(source_count_dict):
         y = values
     )]
     fig = go.Figure(data=data)
+    fig.update_traces(marker_color='rgb(35,199,172)')
     fig.show()
 
 
@@ -250,9 +252,13 @@ def countPercentageTrumpWSJHeadlines(cur, conn):
 # with the percentage of Fake News and True News
 # Takes a dictionary as a paramater
 def visualizations(dictionary):
+    colors = ['#23c7ac', '#37474f']
     labels = list(dictionary.keys())    
     values = list(dictionary.values())
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values, hole=.3)])
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
+    fig.update_traces(textfont_size=20,
+                  marker=dict(colors=colors, line=dict(color='#333', width=1)))
+
     fig.show()
 
 cur, conn = setUpDatabase('finalProject.db')
@@ -263,22 +269,22 @@ trumpDict = countPercentageTrumpWSJHeadlines(cur, conn)
 visualizations(trumpDict)
 
 source_count_dict = countNumArticlesPerSource(cur, conn)
-#visualizeNumArticlesPerSource(source_count_dict)
+visualizeNumArticlesPerSource(source_count_dict)
 
 section_avg_dict = calculateNYTPrintPageAvg(cur, conn)
-#visualizeNYTPrintPageAvg(section_avg_dict)
+visualizeNYTPrintPageAvg(section_avg_dict)
 
 all_data = mlClassificationData(cur, conn)
-#visualizations(all_data)
+visualizations(all_data)
 
 twitter_data = mlClassificationTwitterData(cur, conn)
-#visualizations(twitter_data)
+visualizations(twitter_data)
 
 nyt_data = mlClassificationNYTData(cur, conn)
-#visualizations(nyt_data)
+visualizations(nyt_data)
 
 wsj_data = mlClassificationWSJData(cur, conn)
-#visualizations(wsj_data)
+visualizations(wsj_data)
 
 
 
