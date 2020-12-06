@@ -257,7 +257,7 @@ def visualizations(dictionary):
     values = list(dictionary.values())
     fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
     fig.update_traces(textfont_size=20,
-                  marker=dict(colors=colors, line=dict(color='#333', width=1)))
+                  marker=dict(colors=colors, line=dict(color='#333', width=1, hole=0.2)))
 
     fig.show()
 
