@@ -1,0 +1,1658 @@
+FINAL PROJECT CALCULATION
+Grant Ho and Chase Goldman
+CALCULATION 1: For each article in our database, is it real news or fake news?
+
+FAKE NEWS / REAL NEWS CLASSIFICATION FOR ALL ARTICLES: 
+CNN Article Number: 0
+	Classification: REAL NEWS
+
+CNN Article Number: 1
+	Classification: REAL NEWS
+
+CNN Article Number: 6
+	Classification: FAKE NEWS
+
+CNN Article Number: 18
+	Classification: REAL NEWS
+
+The Washington Post Article Number: 2
+	Classification: REAL NEWS
+
+The Washington Post Article Number: 5
+	Classification: FAKE NEWS
+
+Sports Illustrated Article Number: 3
+	Classification: REAL NEWS
+
+POLITICO Article Number: 4
+	Classification: FAKE NEWS
+
+POLITICO Article Number: 11
+	Classification: FAKE NEWS
+
+The Hill Article Number: 7
+	Classification: REAL NEWS
+
+WFAA.com Article Number: 8
+	Classification: REAL NEWS
+
+CNBC Article Number: 9
+	Classification: REAL NEWS
+
+The New York Times Article Number: 0
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 1
+	Classification: REAL NEWS
+
+The New York Times Article Number: 2
+	Classification: REAL NEWS
+
+The New York Times Article Number: 3
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 4
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 5
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 6
+	Classification: REAL NEWS
+
+The New York Times Article Number: 7
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 8
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 9
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 10
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 10
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 11
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 12
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 13
+	Classification: REAL NEWS
+
+The New York Times Article Number: 14
+	Classification: REAL NEWS
+
+The New York Times Article Number: 15
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 17
+	Classification: REAL NEWS
+
+The New York Times Article Number: 18
+	Classification: REAL NEWS
+
+The New York Times Article Number: 19
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 20
+	Classification: REAL NEWS
+
+The New York Times Article Number: 21
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 23
+	Classification: FAKE NEWS
+
+The New York Times Article Number: 24
+	Classification: FAKE NEWS
+
+TMZ Article Number: 12
+	Classification: FAKE NEWS
+
+Ars Technica Article Number: 13
+	Classification: FAKE NEWS
+
+San Francisco Chronicle Article Number: 14
+	Classification: REAL NEWS
+
+CBS News Article Number: 15
+	Classification: FAKE NEWS
+
+Reuters Article Number: 16
+	Classification: REAL NEWS
+
+FRANCE 24 Article Number: 17
+	Classification: REAL NEWS
+
+ESPN Article Number: 19
+	Classification: FAKE NEWS
+
+Twitter Article Number: 0
+	Classification: FAKE NEWS
+
+Twitter Article Number: 1
+	Classification: FAKE NEWS
+
+Twitter Article Number: 2
+	Classification: FAKE NEWS
+
+Twitter Article Number: 3
+	Classification: FAKE NEWS
+
+Twitter Article Number: 4
+	Classification: FAKE NEWS
+
+Twitter Article Number: 5
+	Classification: FAKE NEWS
+
+Twitter Article Number: 6
+	Classification: FAKE NEWS
+
+Twitter Article Number: 7
+	Classification: FAKE NEWS
+
+Twitter Article Number: 8
+	Classification: FAKE NEWS
+
+Twitter Article Number: 9
+	Classification: FAKE NEWS
+
+Twitter Article Number: 10
+	Classification: FAKE NEWS
+
+Twitter Article Number: 11
+	Classification: FAKE NEWS
+
+Twitter Article Number: 12
+	Classification: FAKE NEWS
+
+Twitter Article Number: 13
+	Classification: FAKE NEWS
+
+Twitter Article Number: 14
+	Classification: FAKE NEWS
+
+Twitter Article Number: 15
+	Classification: FAKE NEWS
+
+Twitter Article Number: 16
+	Classification: FAKE NEWS
+
+Twitter Article Number: 17
+	Classification: FAKE NEWS
+
+Twitter Article Number: 18
+	Classification: FAKE NEWS
+
+Twitter Article Number: 19
+	Classification: FAKE NEWS
+
+Twitter Article Number: 20
+	Classification: FAKE NEWS
+
+Twitter Article Number: 21
+	Classification: FAKE NEWS
+
+Twitter Article Number: 22
+	Classification: FAKE NEWS
+
+Twitter Article Number: 23
+	Classification: FAKE NEWS
+
+Twitter Article Number: 24
+	Classification: FAKE NEWS
+
+Twitter Article Number: 25
+	Classification: FAKE NEWS
+
+Twitter Article Number: 26
+	Classification: FAKE NEWS
+
+Twitter Article Number: 27
+	Classification: FAKE NEWS
+
+Twitter Article Number: 28
+	Classification: FAKE NEWS
+
+Twitter Article Number: 29
+	Classification: FAKE NEWS
+
+Twitter Article Number: 30
+	Classification: FAKE NEWS
+
+Twitter Article Number: 31
+	Classification: FAKE NEWS
+
+Twitter Article Number: 32
+	Classification: FAKE NEWS
+
+Twitter Article Number: 33
+	Classification: FAKE NEWS
+
+Twitter Article Number: 34
+	Classification: FAKE NEWS
+
+Twitter Article Number: 35
+	Classification: FAKE NEWS
+
+Twitter Article Number: 36
+	Classification: FAKE NEWS
+
+Twitter Article Number: 37
+	Classification: FAKE NEWS
+
+Twitter Article Number: 38
+	Classification: FAKE NEWS
+
+Twitter Article Number: 39
+	Classification: FAKE NEWS
+
+Twitter Article Number: 40
+	Classification: FAKE NEWS
+
+Twitter Article Number: 41
+	Classification: FAKE NEWS
+
+Twitter Article Number: 42
+	Classification: FAKE NEWS
+
+Twitter Article Number: 43
+	Classification: FAKE NEWS
+
+Twitter Article Number: 44
+	Classification: FAKE NEWS
+
+Twitter Article Number: 45
+	Classification: FAKE NEWS
+
+Twitter Article Number: 46
+	Classification: FAKE NEWS
+
+Twitter Article Number: 47
+	Classification: FAKE NEWS
+
+Twitter Article Number: 48
+	Classification: FAKE NEWS
+
+Twitter Article Number: 49
+	Classification: FAKE NEWS
+
+Twitter Article Number: 50
+	Classification: FAKE NEWS
+
+Twitter Article Number: 51
+	Classification: FAKE NEWS
+
+Twitter Article Number: 52
+	Classification: FAKE NEWS
+
+Twitter Article Number: 53
+	Classification: FAKE NEWS
+
+Twitter Article Number: 54
+	Classification: FAKE NEWS
+
+Twitter Article Number: 55
+	Classification: FAKE NEWS
+
+Twitter Article Number: 56
+	Classification: FAKE NEWS
+
+Twitter Article Number: 57
+	Classification: FAKE NEWS
+
+Twitter Article Number: 58
+	Classification: FAKE NEWS
+
+Twitter Article Number: 59
+	Classification: FAKE NEWS
+
+Twitter Article Number: 60
+	Classification: FAKE NEWS
+
+Twitter Article Number: 61
+	Classification: FAKE NEWS
+
+Twitter Article Number: 62
+	Classification: FAKE NEWS
+
+Twitter Article Number: 63
+	Classification: FAKE NEWS
+
+Twitter Article Number: 64
+	Classification: FAKE NEWS
+
+Twitter Article Number: 65
+	Classification: FAKE NEWS
+
+Twitter Article Number: 66
+	Classification: FAKE NEWS
+
+Twitter Article Number: 67
+	Classification: FAKE NEWS
+
+Twitter Article Number: 68
+	Classification: FAKE NEWS
+
+Twitter Article Number: 69
+	Classification: FAKE NEWS
+
+Twitter Article Number: 70
+	Classification: FAKE NEWS
+
+Twitter Article Number: 71
+	Classification: FAKE NEWS
+
+Twitter Article Number: 72
+	Classification: FAKE NEWS
+
+Twitter Article Number: 73
+	Classification: FAKE NEWS
+
+Twitter Article Number: 74
+	Classification: FAKE NEWS
+
+Twitter Article Number: 75
+	Classification: FAKE NEWS
+
+Twitter Article Number: 76
+	Classification: FAKE NEWS
+
+Twitter Article Number: 77
+	Classification: FAKE NEWS
+
+Twitter Article Number: 78
+	Classification: FAKE NEWS
+
+Twitter Article Number: 79
+	Classification: FAKE NEWS
+
+Twitter Article Number: 80
+	Classification: FAKE NEWS
+
+Twitter Article Number: 81
+	Classification: FAKE NEWS
+
+Twitter Article Number: 82
+	Classification: FAKE NEWS
+
+Twitter Article Number: 83
+	Classification: FAKE NEWS
+
+Twitter Article Number: 84
+	Classification: FAKE NEWS
+
+Twitter Article Number: 85
+	Classification: FAKE NEWS
+
+Twitter Article Number: 86
+	Classification: FAKE NEWS
+
+Twitter Article Number: 87
+	Classification: FAKE NEWS
+
+Twitter Article Number: 88
+	Classification: FAKE NEWS
+
+Twitter Article Number: 89
+	Classification: FAKE NEWS
+
+Twitter Article Number: 90
+	Classification: FAKE NEWS
+
+Twitter Article Number: 91
+	Classification: FAKE NEWS
+
+Twitter Article Number: 92
+	Classification: FAKE NEWS
+
+Twitter Article Number: 93
+	Classification: FAKE NEWS
+
+Twitter Article Number: 94
+	Classification: FAKE NEWS
+
+Twitter Article Number: 95
+	Classification: FAKE NEWS
+
+Twitter Article Number: 96
+	Classification: FAKE NEWS
+
+Twitter Article Number: 97
+	Classification: FAKE NEWS
+
+Twitter Article Number: 98
+	Classification: FAKE NEWS
+
+Twitter Article Number: 99
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 0
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 1
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 2
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 3
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 4
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 5
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 6
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 7
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 8
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 9
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 10
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 11
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 12
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 13
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 14
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 15
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 16
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 17
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 18
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 19
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 20
+	Classification: FAKE NEWS
+
+The Wall Street Journal Article Number: 21
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 22
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 23
+	Classification: REAL NEWS
+
+The Wall Street Journal Article Number: 24
+	Classification: FAKE NEWS
+
+CALCULATION 2: On average, what page of the newspaper was each article from the New York Times sections in our database printed on?
+
+On average, a New York Times article belonging to the U.S. Section was printed on page 12.787878787878787 of the newspaper.
+On average, a New York Times article belonging to the New York Section was printed on page 16.907894736842106 of the newspaper.
+On average, a New York Times article belonging to the World Section was printed on page 6.956043956043956 of the newspaper.
+On average, a New York Times article belonging to the Science Section was printed on page 15.833333333333334 of the newspaper.
+On average, a New York Times article belonging to the Health Section was printed on page 19.333333333333332 of the newspaper.
+CALCULATION 3: For each source in the database, how many articles did we have from that source?
+
+Source Name: The New York Times
+Number of articles from The New York Times: 277
+
+Source Name: CNN
+Number of articles from CNN: 6
+
+Source Name: The Washington Post
+Number of articles from The Washington Post: 3
+
+Source Name: Sports Illustrated
+Number of articles from Sports Illustrated: 1
+
+Source Name: POLITICO
+Number of articles from POLITICO: 2
+
+Source Name: The Hill
+Number of articles from The Hill: 2
+
+Source Name: WFAA.com
+Number of articles from WFAA.com: 1
+
+Source Name: CNBC
+Number of articles from CNBC: 5
+
+Source Name: TMZ
+Number of articles from TMZ: 1
+
+Source Name: Ars Technica
+Number of articles from Ars Technica: 1
+
+Source Name: San Francisco Chronicle
+Number of articles from San Francisco Chronicle: 1
+
+Source Name: CBS News
+Number of articles from CBS News: 1
+
+Source Name: Reuters
+Number of articles from Reuters: 1
+
+Source Name: FRANCE 24
+Number of articles from FRANCE 24: 1
+
+Source Name: ESPN
+Number of articles from ESPN: 2
+
+Source Name: The Wall Street Journal
+Number of articles from The Wall Street Journal: 322
+
+Source Name: New York Post 
+Number of articles from New York Post : 1
+
+Source Name: NASA
+Number of articles from NASA: 1
+
+Source Name: NBC Sports
+Number of articles from NBC Sports: 1
+
+Source Name: KOIN.com
+Number of articles from KOIN.com: 1
+
+Source Name: CBS Sports
+Number of articles from CBS Sports: 1
+
+Source Name: CinemaBlend
+Number of articles from CinemaBlend: 1
+
+Source Name: AL.com
+Number of articles from AL.com: 1
+
+Source Name: WPRI.com
+Number of articles from WPRI.com: 1
+
+Source Name: Fox News
+Number of articles from Fox News: 1
+
+Source Name: The Guardian
+Number of articles from The Guardian: 1
+
+Source Name: Variety
+Number of articles from Variety: 1
+
+Source Name: CNET
+Number of articles from CNET: 1
+
+Source Name: BuzzFeed News
+Number of articles from BuzzFeed News: 1
+
+Source Name: NBC San Diego
+Number of articles from NBC San Diego: 1
+
+Source Name: KCRA Sacramento
+Number of articles from KCRA Sacramento: 1
+
+Source Name: Hawaii News Now
+Number of articles from Hawaii News Now: 1
+
+Source Name: Motley Fool
+Number of articles from Motley Fool: 1
+
+Source Name: Business Insider
+Number of articles from Business Insider: 1
+
+Source Name: Cointelegraph
+Number of articles from Cointelegraph: 1
+
+Source Name: USA TODAY
+Number of articles from USA TODAY: 1
+
+Source Name: Fox Business
+Number of articles from Fox Business: 1
+
+Source Name: Investor's Business Daily
+Number of articles from Investor's Business Daily: 1
+
+Source Name: Associated Press
+Number of articles from Associated Press: 1
+
+Source Name: The Points Guy
+Number of articles from The Points Guy: 1
+
+Source Name: TechCrunch
+Number of articles from TechCrunch: 1
+
+Source Name: WRAL.com
+Number of articles from WRAL.com: 1
+
+Source Name: KTRK-TV
+Number of articles from KTRK-TV: 1
+
+Source Name: CoinDesk
+Number of articles from CoinDesk: 1
+
+Source Name: Endpoints News
+Number of articles from Endpoints News: 1
+
+Source Name: BZ Berner Zeitung
+Number of articles from BZ Berner Zeitung: 1
+
+Source Name: Schweizer Radio und Fernsehen (SRF)
+Number of articles from Schweizer Radio und Fernsehen (SRF): 4
+
+Source Name: zentralplus
+Number of articles from zentralplus: 1
+
+Source Name: BLICK
+Number of articles from BLICK: 1
+
+Source Name: Tages-Anzeiger
+Number of articles from Tages-Anzeiger: 2
+
+Source Name: Luzerner Zeitung
+Number of articles from Luzerner Zeitung: 1
+
+Source Name: suedostschweiz.ch
+Number of articles from suedostschweiz.ch: 1
+
+Source Name: 12 Jahre nach Cuche: Odermatt ist der Beste seines Fachs
+Number of articles from 12 Jahre nach Cuche: Odermatt ist der Beste seines Fachs: 1
+
+Source Name: 20 Minuten
+Number of articles from 20 Minuten: 4
+
+Source Name: Unfälle in Bern, Stromausfälle in Graubünden
+Number of articles from Unfälle in Bern, Stromausfälle in Graubünden: 1
+
+Source Name: Neue Zürcher Zeitung
+Number of articles from Neue Zürcher Zeitung: 2
+
+Source Name: Trump im Wahlkampf: Helfer oder Hindernis?
+Number of articles from Trump im Wahlkampf: Helfer oder Hindernis?: 1
+
+Source Name: Twitter
+Number of articles from Twitter: 100
+
+CALCULATION 4: What percentage of Wall Street Journal Headlines involved Donald Trump?
+
+Wall Street Journal Article URL: 10th-house-lawmaker-tests-positive-for-covid-19-11596306537
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-first-step-toward-loving-our-enemies-11599174418
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-latin-leader-copes-with-covid-19-11596396676
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-lynching-false-alarm-in-california-11596495473
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-new-chapter-in-fraught-ties-between-president-spies-11593777654
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-north-korean-defectors-tale-shows-rotting-military-11593867607
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-snapshot-in-a-troubled-covid-19-timefor-charity-11596290401
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-toll-of-coronavirus-in-new-york-is-a-new-group-of-orphans-11596288601
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-true-economic-stimulus-plan-11593728372
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: a-virus-progress-report-11599001150
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: abolition-and-the-american-founding-11593808466
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: acting-state-department-watchdog-resigns-11596641325
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: adt-says-google-to-invest-450-million-to-create-home-security-offerings-11596459647
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: advertisers-seek-right-to-cancel-tv-spending-as-pandemic-roils-fall-season-11599072109
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: advice-an-old-biden-hand-might-give-11599177056
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: after-spirit-of-unity-nyc-teachers-union-chief-threatens-court-action-if-schools-arent-safe-11599171374
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: after-week-of-coronavirus-highs-u-s-sees-slight-drop-in-cases-for-july-fourth-11593954831
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: aig-and-barings-among-lenders-objecting-to-hertz-fleet-cuts-11593641866
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: airlines-go-back-to-congress-for-money-to-preserve-jobs-11596298261
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: all-that-glitters-isnt-maduros-gold-11593978640
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: allow-us-to-present-the-pandemic-bill-11599088979
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: als-drug-study-signals-progress-toward-treatment-for-deadly-disease-11599080400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: amlos-hugs-wont-end-mexican-mayhem-11593973617
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: amoako-boafo-portraits-interview-11599003761
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: an-honest-conversation-about-race-11593728522
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: an-old-fashioned-fourth-in-the-black-hills-11593969700
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: an-unladylike-profession-review-new-recruits-over-there-11593973451
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: antibodies-can-be-the-bridge-to-a-vaccine-11593969735
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: antitrust-enforcers-update-approach-to-vertical-mergers-11593640781
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: apparel-brands-push-more-stylish-dressing-at-home-11593727610
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: apple-and-amazons-race-to-100-billion-11596286801
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: are-colleges-ready-for-the-fall-semester-11596582494
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: arthritis-drug-fails-in-study-of-covid-19-patients-11593726466
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: as-ethiopia-prepares-to-fill-nile-dam-egypt-appeals-for-international-help-11594036368
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: back-to-school-no-excuses-11599088867
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: bahamas-hispaniola-lashed-by-isaias-as-florida-steps-up-hurricane-preparations-11596233966
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: beirut-explosion-brings-lebanon-to-the-brink-11596663015
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: beirut-explosion-kills-at-least-100-injures-thousands-11596620481
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: benjamin-franklin-person-of-concern-11599001058
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: bezos-beijing-and-the-washington-post-11596584456
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: biden-calls-for-broader-federal-aid-to-open-schools-safely-11599075658
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: biden-proposes-national-coordination-for-coronavirus-response-11593727017
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: biden-to-visit-kenosha-on-thursday-11599066137
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: bidens-good-tactics-bad-strategy-11596664417
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: bidens-top-running-mate-contenders-emerge-as-he-enters-key-week-11596274200
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: bitcoin-is-riding-high-again-as-investors-embrace-risk-11596376800
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: black-is-king-by-beyonce-review-visions-of-paradise-11596491944
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: blackstone-gip-make-takeover-bid-for-kansas-city-southern-11599073239
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: blackstone-joins-clearlake-and-insight-in-backing-software-maker-diligent-11596582568
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: britains-military-prepares-for-new-threats-11599000827
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: building-collapses-in-brooklyn-11593643733
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: bundini-review-the-trickster-in-his-corner-11599174394
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: business-and-personal-bankruptcy-filings-in-the-u-s-rose-in-july-11596582322
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: business-and-personal-bankruptcy-filings-in-the-u-s-slowed-in-august-11599089229
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: byways-of-la-serenissima-the-venice-you-probably-dont-know-11596279600
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: campus-culture-seizes-the-streets-11593973851
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: cancer-screening-leaps-forward-11593973586
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: chamber-of-errors-11599174564
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: changes-coming-to-baseballs-health-protocols-after-coronavirus-outbreaks-11596395481
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: chernovas-take-le-tote-bankruptcy-points-to-vulnerable-clothing-rental-model-11596584579
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: china-appoints-protest-and-propaganda-enforcer-to-tame-hong-kong-11593786507
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: cleveland-indians-will-consider-a-name-change-11593872664
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: clorox-posts-higher-sales-as-consumers-stock-up-on-disinfectants-11596454128
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: clothing-retailer-lucky-brand-files-for-bankruptcy-11593821941
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: cloud-spending-hits-record-amid-economic-fallout-from-covid-19-11596494981
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: college-campus-reopen-dorm-coronavirus-schools-fall-semester-yale-boston-university-11596408514
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: colombia-arrests-venezuelans-tied-to-failed-invasion-11599175987
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: colombian-army-soldiers-accused-of-raping-girls-11593809706
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: columbus-is-racist-says-columbus-11593730869
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: commerzbank-appoints-new-chairman-defying-big-investor-cerberus-11596484083
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: commerzbanks-ceo-and-chairman-to-resign-amid-pressure-from-activist-cerberus-11593802828
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: companies-cancel-atlantic-coast-pipeline-after-years-of-delays-11593975601
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coney-island-emerges-from-lockdown-as-new-york-city-beaches-reopen-11593639647
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-aid-bill-talks-to-resume-on-capitol-hill-11596552848
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-is-no-cure-for-health-care-stocks-11593950400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-justice-fights-shadow-fourth-of-july-events-11593888133
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-latest-news-07-03-2020-11593768976
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-latest-news-08-01-2020-11596268447
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-latest-news-08-03-2020-11596443238
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-latest-news-08-05-2020-11596615261
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-latest-news-080220-11596361041
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-latest-news-09-01-2020-11598946708
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-latest-news-09-03-2020-11599121811
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-politics-fueled-challenger-in-colorado-house-gop-primary-11593638290
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-spreads-on-st-louis-cardinals-stoking-fears-about-season-11596297415
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: coronavirus-stimulus-talks-to-resume-after-jobless-aid-lapses-11596470044
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: countdown-1945-review-checkmate-in-the-pacic-11596664105
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: covid-19-forces-levi-to-accelerate-its-consumer-strategy-shift-11596223224
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: covid-19-hastens-the-work-at-home-revolution-11596495435
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: covid-19-pandemic-ravages-worlds-largest-developing-economies-11599171833
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: covid-19-vaccine-trials-have-a-problem-minority-groups-dont-trust-them-11596619802
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: cvs-raises-full-year-expectations-benefits-from-insurance-business-11596627041
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: cynicism-and-the-function-of-cynicism-at-the-present-time-review-when-nothing-is-good-enough-11599086981
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: de-blasio-faces-calls-for-deeper-nypd-change-after-1-billion-budget-shift-11593730477
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: death-of-daniel-prude-sparks-protests-in-rochester-n-y-11599147167
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: developing-world-migrant-workers-remittances-coronavirus-pandemic-lockdown-reopen-11593969595
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: disneys-free-pass-extended-11596581125
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: disneys-mulan-remake-was-created-with-chinese-audiences-in-mind-11599171600
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: dozens-of-u-s-diplomats-to-leave-saudi-arabia-as-coronavirus-outbreak-worsens-11593812097
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: driving-over-air-travel-takeout-over-cafes-pandemic-shapes-consumption-11593855000
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: economists-vs-common-sense-11596398926
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: economy-week-ahead-factories-trade-and-jobs-11596394800
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: economy-week-ahead-services-jobless-claims-and-inflation-11593975600
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: el-paso-walmart-shooting-one-year-later-museum-collects-items-left-behind-11596279601
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: emmanuel-macrons-reform-restart-11593808984
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: expect-little-from-trumps-drug-price-move-11596390888
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: faas-handling-of-boeing-737-max-issues-faulted-in-transportation-department-review-11593619195
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: facebook-boycott-organizers-want-a-civil-rights-expert-in-the-companys-executive-suite-11593730015
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: facebook-twitter-google-face-free-speech-test-in-hong-kong-11593790205
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: facial-recognitions-next-big-play-the-sports-stadium-11596290400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: families-at-large-prestigious-nyc-high-schools-want-them-to-stay-fully-remote-11596492597
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: fed-debated-options-to-provide-more-economic-support-11593626400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: flag-bearing-motorcyclist-charged-with-terrorism-and-secession-in-hong-kong-11593791622
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: for-biden-riots-present-only-bad-options-11599087135
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: foreign-tyranny-by-u-s-lawsuit-11599087161
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: fox-posts-lower-quarterly-profit-on-decline-in-advertising-revenue-11596572454
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: french-prime-minister-resigns-triggering-shuffle-of-macron-s-government-11593767210
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: from-digitized-mail-to-wedding-pics-and-troubled-pop-stars-11596308401
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: from-hiroshimas-devastation-a-wrenching-account-of-the-human-toll-11596664036
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: gas-finds-trigger-a-standoff-in-the-mediterranean-between-an-isolated-turkey-and-rivals-11596387600
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: gasoline-is-cheap-this-july-fourth-fuel-retailers-arent-complaining-11593855001
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: ghislaine-maxwell-confidante-of-jeffrey-epstein-arrested-on-federal-charges-11593697302
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: global-stock-markets-dow-update-7-03-2020-11593768198
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: gm-aims-to-give-electric-vehicle-owners-more-places-to-charge-11596219233
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: hating-humanity-wont-get-you-canceled-11596664176
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: hedge-fund-founder-arrested-over-neiman-marcus-asset-bid-11599155813
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: henrietta-lacks-and-her-remarkable-cells-will-finally-see-some-payback-11596295285
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: heres-how-college-students-are-spending-their-campus-quarantines-11598997972
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: hilton-hotel-in-times-square-set-to-close-11599087915
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: home-caregivers-shoulder-burden-in-covid-19-fight-11593864000
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: homicide-spike-cities-chicago-newyork-detroit-us-crime-police-lockdown-coronavirus-protests-11596395181
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: hong-kongs-boat-people-11599001124
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: hotel-san-francisco-11593645034
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: house-passes-1-5-trillion-infrastructure-bill-11593638962
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: house-passes-extension-of-paycheck-protection-program-11593640427
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: housing-law-ideology-and-big-executive-power-grabs-11596390687
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: how-a-lincoln-douglass-debate-led-to-historic-discovery-11593869400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: how-the-miami-marlins-became-baseballs-ship-of-theseus-11596538800
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: how-trump-can-deliver-tax-relief-without-congress-11596396830
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: hurricane-isaias-heads-toward-florida-after-hitting-the-bahamas-11596308394
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: hydroxychloroquine-given-early-helped-coronavirus-patients-study-finds-11593729664
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: i-get-aroundbut-not-this-covid-summer-11596495401
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: i-was-never-trump-not-anymore-11599087108
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: im-thinking-of-ending-things-review-a-mobius-strip-of-a-road-trip-11599169620
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: in-france-police-tactics-collide-with-colorblind-ideals-11593971104
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: in-race-to-secure-covid-19-vaccines-worlds-poorest-countries-lag-behind-11598998776
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: in-the-u-s-coronavirus-tells-a-tale-of-two-americas-11593797658
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: indias-retaliation-against-china-carries-economic-costs-11593869295
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: insurers-report-mixed-results-from-covid-19-11596581628
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: intel-cio-says-ai-playing-a-growing-role-in-chipmakers-operations-11598996924
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: iran-looking-at-possible-sabotage-after-recent-explosions-at-key-sites-11593795394
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: iranian-military-owned-conglomerate-sets-up-shop-in-venezuela-11593972015
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: israel-says-it-thwarted-attack-along-its-border-with-syria-11596454945
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: its-time-to-get-rid-of-employee-surveys-11596246683
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: jerome-powells-target-everyone-elses-problem-11599174639
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: jobs-data-coronavirus-cases-cloud-stimulus-plans-for-senate-republicans-11593727437
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: joe-biden-bows-to-the-teachers-unions-11593978756
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: joe-biden-to-travel-to-kenosha-11599147854
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: judges-decision-to-count-invalidated-new-york-primary-ballots-shows-need-for-improved-voting-procedures-11596580676
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: judicial-political-mischief-averted-11596398989
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: justice-department-gets-new-acting-fraud-section-chief-11599169540
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: khashoggi-murder-trial-of-20-saudis-begins-in-turkish-court-11593794796
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: kodak-loan-disclosure-and-stock-surge-under-sec-investigation-11596559126
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: lapse-in-extra-unemployment-benefits-to-hurt-u-s-recovery-economists-say-11596636000
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: latino-business-owners-hit-hard-during-pandemic-11596493322
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: lawless-again-in-seattle-11596582962
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: leaders-of-kosovo-serbia-to-meet-at-white-house-this-week-11598998085
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: lebanon-bonds-hold-ground-after-deadly-explosion-11596651040
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: lebanon-struck-by-blast-at-beirut-port-11596556605
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: let-cdc-do-its-first-job-without-more-bureaucracy-11596390746
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: live-at-luthjens-by-evan-christopher-and-david-torkanowsky-review-legacy-of-a-dance-hall-11593860400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: liz-cheney-keeps-distance-from-trump-on-coronavirus-but-avoids-blowback-11593713200
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: lord-taylor-limps-into-bankruptcy-looking-for-a-suitor-11596495976
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: luckin-coffees-chairman-survives-board-vote-for-his-removal-11593730534
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: macron-presses-lebanons-leaders-to-form-government-deliver-reforms-11598977827
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: madame-speaker-gets-a-haircut-11599088944
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: madison-warned-about-sanctuary-states-11596396761
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: manhattan-prosecutor-seeking-trump-taxes-cites-possibly-extensive-and-protracted-criminal-conduct-11596494759
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: masks-and-makeup-dont-mix-so-cosmetic-fans-seek-permanent-fix-11593977464
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: mcconnell-schumer-trade-shots-on-pace-of-coronavirus-aid-talks-11596647758
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: mcdonalds-halts-reopening-plans-as-u-s-coronavirus-cases-grow-11593639013
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: mens-wearhouse-jos-a-bank-parent-to-pivot-to-casual-attire-in-chapter-11-11596491020
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: mexicos-covid-19-death-toll-could-be-twice-as-high-as-official-tally-11593819788
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: michael-jordan-joins-draftkings-as-special-adviser-to-board-11599051939
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: mike-oriellys-free-speech-fall-11596583088
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: military-families-need-portable-special-ed-11593973767
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: minneapolis-push-to-defund-overhaul-police-department-is-killed-for-now-11596669299
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: mondelez-tightens-palm-oil-supplier-rules-11599171705
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: mulan-review-woman-warrior-redux-11599170351
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: murders-shootings-in-new-york-city-rose-dramatically-in-august-11599075203
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: my-father-the-car-radio-11593973696
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: name-bases-for-heroes-not-traitors-11593728423
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-jersey-allows-illegal-immigrants-to-get-professional-licenses-11598996870
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-ways-to-use-529-college-savings-plans-this-school-year-11593791015
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-york-city-considers-extending-outdoor-dining-into-colder-months-11596579790
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-york-city-delays-school-reopening-11598972188
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-york-city-police-will-increase-patrols-for-labor-day-holiday-weekend-11598998834
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-york-city-prepares-for-tropical-storm-isaias-11596473695
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-york-city-restaurants-open-outposts-in-the-hamptons-this-summer-11593864000
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-york-election-officials-wade-through-absentee-ballots-11593990000
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-york-lawmakers-seek-probe-of-puerto-rico-bondholders-11596646984
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: new-yorks-cop-out-11593731047
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: next-boeing-737-max-government-test-flight-scheduled-for-coming-days-11593983305
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: notable-quotable-pew-poll-11593642434
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: notable-quotable-self-righteous-anger-11596581751
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: notable-quotable-up-in-smoke-11599000722
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: notable-quotable-william-allen-white-11596663906
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: nyse-direct-listings-hit-snag-as-investor-group-raises-concerns-11599000009
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: o-for-a-thousand-tongues-to-sing-11593728266
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: obamas-progressive-pivot-is-meant-to-push-biden-leftward-11596582032
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: oil-prices-rise-on-stronger-than-expected-jobs-data-11593704733
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: our-orphan-constitutional-right-11599174705
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: pac-12-football-players-threaten-to-sit-out-amid-pandemic-inequality-concerns-11596389208
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: paris-rolls-out-red-carpet-for-those-who-can-make-it-11596288766
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: patreon-tops-1-billion-valuation-as-pandemic-brings-a-surge-in-creators-to-platform-11599003623
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: peace-progress-in-yemen-11596496278
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: pentagon-says-china-could-double-nuclear-weapons-in-decade-11599000957
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: photos-spacex-capsule-nasa-crew-make-splashdown-11596404226
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: photos-tropical-storm-isaias-bears-down-on-eastern-seaboard-11596497409
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: police-officers-fired-over-selfies-at-elijah-mcclains-memorial-site-11593817973
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: portland-protests-peaceful-after-drawdown-of-federal-agents-11596302098
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: postal-delays-spill-into-congressional-races-11599130800
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: quibi-tests-a-free-version-in-australia-and-new-zealand-11596671716
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: recovering-dollar-dents-gold-and-silver-prices-11599057366
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: retailers-beware-shoppers-dont-like-to-be-watched-online-11596213167
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: richmond-va-mayor-orders-removal-of-confederate-statues-11593635460
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: russia-aims-to-begin-mass-vaccinations-against-covid-19-in-october-11596291673
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: samsung-unveils-flagship-galaxy-note-20-with-1-000-price-tag-11596636002
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: school-opening-extortion-11596496376
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: seattle-police-dismantle-police-free-zone-11593616694
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: sec-cancels-vote-on-controversial-whistleblower-program-reforms-11599000419
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: she-skates-to-stay-fit-as-coronavirus-rolls-on-11593862200
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: sheldon-whitehouses-favors-11593645437
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: so-unstable-and-so-volatile-oil-crash-crushes-individual-investors-prompts-trading-overhaul-11593855000
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: spacex-capsule-and-nasa-crew-make-historic-splashdown-11596397269
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: spare-us-more-of-the-arrogance-of-expertise-11599000757
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: states-call-on-facebook-to-launch-hate-speech-hotline-11596661898
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: states-with-earlier-success-now-battle-coronavirus-spikes-11593860400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: strange-rites-review-the-freedom-to-mix-and-match-11596582148
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: strike-up-the-banned-11593642507
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: supreme-court-has-greatest-public-approval-in-11-years-11596662931
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: supreme-court-rejects-bid-by-illinois-gop-to-avoid-limits-on-gatherings-11593906161
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: supreme-court-to-decide-federal-courts-authority-over-claims-from-overseas-atrocities-11593717050
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: tax-lawyer-reinvented-himself-as-a-crusading-professor-11593867602
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: teak-glass-and-stone-in-miami-beach-11596493301
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: tech-giants-to-face-eu-legal-push-on-content-competition-taxes-11593967270
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: tech-tycoon-peter-thiel-shies-from-trump-reelection-campaign-11593730590
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: teslas-share-sale-plans-boost-bonds-11599048673
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: test-every-american-for-covid-19-11596582339
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-atomic-bomb-saved-millionsincluding-japanese-11596663957
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-boycott-got-facebooks-attentionbut-a-real-fix-is-nowhere-in-sight-11593723979
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-china-vise-tightens-on-hong-kong-11596398958
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-coronavirus-credibility-gap-11593645643
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-coronavirus-recession-has-created-three-distinct-economies-11599084333
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-culture-wars-are-back-11599087003
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-economy-that-obama-handed-trump-11596391040
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: the-ex-king-of-spain-hops-a-plane-11596582281
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-failed-experiment-of-covid-lockdowns-11599000890
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-geopolitics-of-tiktok-11596583242
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-green-new-deal-in-action-11593645373
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-gun-sales-of-june-11593730985
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-innovation-delusion-review-mistaking-novelty-for-progress-11599000684
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-meaning-of-hong-kong-11593645526
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-new-corner-office-review-remote-control-11596396598
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-old-guard-review-teaming-up-down-the-centuries-11593788400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-pandemic-is-a-dress-rehearsal-11596495140
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-physics-of-a-political-crack-up-11596396637
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-poisoning-of-alexei-navalny-11599088894
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-remdesivir-patent-isnt-state-property-11599000916
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-staying-inside-guide-raise-a-glass-to-art-history-11593860400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-tesla-secret-11596582407
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-trump-campaign-needs-to-hit-reset-11593642544
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: the-wages-of-reopening-11593731105
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: the-world-review-the-old-new-world-order-11593642340
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: time-for-rv-investors-to-hit-the-road-11593871201
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: to-combat-covid-dont-turn-the-clock-back-11599174446
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: transcript-wsj-in-conversation-with-atlanta-fed-president-raphael-bostic-11599175116
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: tropical-storm-isaias-knocks-out-power-to-350-000-new-jersey-households-11596562611
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: trump-administration-begins-payroll-tax-deferral-plan-set-to-start-sept-1-11598649525
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trump-at-mount-rushmore-11593978913
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trump-campaign-again-asks-for-extra-debate-with-biden-11596661060
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trump-criticizes-health-adviser-deborah-birx-after-her-coronavirus-warning-11596469424
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trump-denounces-russia-bounty-intelligence-as-hoax-11593646757
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trump-says-vote-early-and-often-11599174742
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trump-threatens-to-veto-defense-bill-over-provision-to-strip-confederate-base-names-11593614483
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trump-wins-in-portland-11596495197
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trumps-housing-seizure-11599174672
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: trumps-strongest-line-of-attack-11599001279
+Does the URL headline include Trump: YES
+
+Wall Street Journal Article URL: turkish-judge-releases-manager-pilots-in-carlos-ghosn-escape-trial-11593803710
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: tvs-everyman-hugh-downs-dies-at-99-11593724071
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-k-government-bharti-global-commit-1-billion-to-buy-oneweb-11593877560
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-s-blacklists-zimbabwean-businessman-and-company-for-alleged-corruption-11596662980
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-s-coronavirus-cases-surge-into-fourth-of-july-weekend-11593864203
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-s-debt-is-set-to-exceed-size-of-the-economy-for-year-a-first-since-world-war-ii-11599051137
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-s-imposes-new-restrictions-on-chinese-diplomats-11599058429
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-s-sends-two-aircraft-carriers-to-south-china-sea-for-exercises-as-china-holds-drills-nearby-11593816043
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-s-shows-off-its-firepower-to-beijing-in-south-china-sea-11593965632
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: u-s-warns-businesses-over-supply-chains-tied-to-rights-violations-in-china-11593625904
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: uber-under-pressure-to-beef-up-food-delivery-11593725443
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: vale-is-financially-able-to-resume-dividends-but-watching-covid-cfo-11593798576
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: veritas-review-crimson-faces-11596495263
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: waiting-for-diners-to-show-up-again-11593728191
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: walmart-healthcare-executive-sean-slovenski-departs-11596581721
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: want-schools-to-open-get-serious-about-outbreaks-11596396822
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: washingtons-nfl-team-to-undertake-thorough-review-of-redskins-name-11593792083
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: what-could-go-wrong-on-election-day-11599087053
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: what-makes-bars-and-restaurants-potential-covid-19-hot-spots-11593768600
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: when-the-ceo-is-in-the-officeand-everyone-else-is-working-from-home-11596290400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: when-your-favorite-companies-go-woke-11596664277
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: why-canes-and-walkers-are-getting-a-new-look-11596223609
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: why-hourly-wages-can-make-you-unhappy-11596221099
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: why-youthful-conservative-pakistan-is-a-coronavirus-bright-spot-11596297600
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: will-facebook-ban-hate-speech-from-indias-ruling-party-11599174534
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: wirecard-executives-entry-into-philippines-might-have-been-faked-11593781154
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: wirecards-adventure-seeking-no-2-was-key-to-the-firms-rapid-rise-then-he-disappeared-11593798856
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: with-biotech-stocks-investors-love-the-thrill-of-the-chase-11596619800
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: with-no-federal-agents-on-streets-portland-protests-turn-largely-peaceful-11596393022
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: with-no-summer-concerts-its-garth-brooks-at-the-drive-in-11593941400
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: worker-turnover-shortened-schedule-hamper-2020-census-11599048011
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: you-say-you-want-a-revolution-11593642468
+Does the URL headline include Trump: NO
+
+Wall Street Journal Article URL: zoom-shares-jump-after-company-reports-surging-demand-during-pandemic-11598977735
+Does the URL headline include Trump: NO
+
+FINAL PERCENTAGE: 5.607476635514018Of all the WSJ headlines in our database, 5.607476635514018\% of them were about Donald Trump

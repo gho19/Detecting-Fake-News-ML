@@ -6,7 +6,7 @@ import database
 
 # API Key: 61e924b119ab4e4294956f2da5d1d01c
 
-url = ('http://newsapi.org/v2/top-headlines?country=us&apiKey=61e924b119ab4e4294956f2da5d1d01c')
+url = ('https://newsapi.org/v2/top-headlines?country=ch&apiKey=61e924b119ab4e4294956f2da5d1d01c')
 response = requests.get(url)
 data = response.json()
 

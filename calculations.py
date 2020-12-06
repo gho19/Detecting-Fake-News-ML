@@ -1,14 +1,14 @@
 # FILE FOR MAKING CALCULATIONS
 
-# NYT_ArticleContent
-# NYT_Sections
-# NYT_URL_Data
-# News_API
-# Sources (calculation 1)
-# Twitter
+# NYT_ArticleContent (ml)
+# NYT_Sections (calc 5)
+# NYT_URL_Data (calc 5)
+# News_API (ml)
+# Sources (calculation 6)
+# Twitter (ml)
 # Twitter_users
-# WSJ_Article_Content
-# WSJ_URL_Data
+# WSJ_Article_Content (ml)
+# WSJ_URL_Data (calculation 7)
 
 # You must select some data from all of the tables in your database and calculate something from that data
 # You must do at least one database join to select your data
