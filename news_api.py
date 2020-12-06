@@ -21,7 +21,7 @@ def newsApiData():
     for news in data['articles']:
         title = news['title'].split(' - ')
         source = news['source']['name']
-        entries.append([title[1], title[0], news['description'], news['publishedAt'], news['url']])
+        entries.append([source, title[0], news['description'], news['publishedAt'], news['url']])
 
     return entries
 
