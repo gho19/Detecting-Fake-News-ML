@@ -208,7 +208,13 @@ def countNumArticlesPerSource(cur, conn):
             source_count_dict[source_name] = 0
         source_count_dict[source_name] += 1
 
-    return source_count_dict
+    good_dict = {}
+
+    for source in source_count_dict:
+        if source_count_dict[source] >= 2:
+            good_dict[source] = source_count_dict[source]
+
+    return good_dict
 
 def visualizeNumArticlesPerSource(source_count_dict):
     labels = list(source_count_dict.keys())    
@@ -279,7 +285,7 @@ wsj_data = mlClassificationWSJData(cur, conn)
 def writeCalculations(output_file, cur, conn):
     with open(output_file, 'w') as outfile:
         outfile.write('FINAL PROJECT CALCULATION\n')
-        outfile.write('Grant Ho and Chase Goldman\n')
+        outfile.write('Grant Ho and Chase Goldman\n\n')
 
         outfile.write('CALCULATION 1: For each article in our database, is it real news or fake news?\n\n')
 
