@@ -148,7 +148,10 @@ def mlClassificationWSJData(cur, conn):
     return ml_pie
 
 
-# 5) calculate the average print page per article in each section of the NYTimes
+# This function takes in a connection to the database. It then uses a JOIN to create a new table for NYT
+# articles and pulls the section_name and page that each article was printed on. For each unique section
+# in our database table, it calculates the average page that an article of that section is printed on.
+# The function returns a dictionary containing this information.
 def calculateNYTPrintPageAvg(cur, conn):  
     cur.execute('SELECT section_name, print_page FROM NYT_Sections JOIN NYT_URL_Data ON NYT_Sections.section_id = NYT_URL_Data.section_id')
     section_page_tups = cur.fetchall()
@@ -169,7 +172,8 @@ def calculateNYTPrintPageAvg(cur, conn):
 
     return {section: statistics.mean(section_dict[section]) for section in section_dict}
 
-
+# This function takes as input the data calculated in calculateNYTPrintPageAvg() and creates a 
+# bar chart using plotly.
 def visualizeNYTPrintPageAvg(section_average_dict):
     
     labels = list(section_average_dict.keys())    
@@ -182,8 +186,10 @@ def visualizeNYTPrintPageAvg(section_average_dict):
     fig.update_traces(marker_color='rgb(35,199,172)')
     fig.show()
 
-# 6) For each source in the sources table, calculate the number of articles we have for that source
-    # no need to join here
+# This function takes a connection to the database as input. For each of the 4 tables in the database
+# containing article content, it does a JOIN with the sources table to get the source name and then adds
+# one to an accumulator for that source, tracking the total number of articles in the database for each source.
+# It then returns a dictionary containing all sources that have more than 2 articles.
 def countNumArticlesPerSource(cur, conn):
     cur.execute('SELECT source_name FROM Sources JOIN NYT_URL_Data ON NYT_URL_Data.source_id = Sources.source_id')
     nyt_tups = cur.fetchall()
@@ -217,6 +223,8 @@ def countNumArticlesPerSource(cur, conn):
 
     return good_dict
 
+# Takes as input a dictionary calculated in countNumArticlesPerSource() and puts all of this 
+# information into a bar chart using plotly
 def visualizeNumArticlesPerSource(source_count_dict):
     labels = list(source_count_dict.keys())    
     values = list(source_count_dict.values())
@@ -229,7 +237,10 @@ def visualizeNumArticlesPerSource(source_count_dict):
     fig.show()
 
 
-# 7) Count the percentage of WSJ headlines that contain the word Trump
+# This function takes as input a connection to the database. For each headline URL in the WSJ table
+# it checks wether the string ‘trump’ was in that headline. It returns a dictionary with two keys, one is
+# Trump Headlines and the other is Non-Trump Headlines, where each key has an associated value which
+# is a count.
 def countPercentageTrumpWSJHeadlines(cur, conn):
     cur.execute('SELECT url_extension FROM WSJ_URL_Data')
     lst_urls = cur.fetchall()
@@ -261,9 +272,8 @@ def visualizations(dictionary):
 
     fig.show()
 
+
 cur, conn = setUpDatabase('finalProject.db')
-
-
 
 trumpDict = countPercentageTrumpWSJHeadlines(cur, conn)
 visualizations(trumpDict)
@@ -287,13 +297,14 @@ wsj_data = mlClassificationWSJData(cur, conn)
 visualizations(wsj_data)
 
 
-
+# Takes an output file name as input along with a connection to the database.
+# Writes all of the calculations neatly formatted into the output_file.txt
 def writeCalculations(output_file, cur, conn):
     with open(output_file, 'w') as outfile:
         outfile.write('FINAL PROJECT CALCULATION\n')
         outfile.write('Grant Ho and Chase Goldman\n\n')
 
-        outfile.write('CALCULATION 1: For each article in our database, is it real news or fake news?\n\n')
+        outfile.write('\n\nCALCULATION 1: For each article in our database, is it real news or fake news?\n\n')
 
         # real / fake news sections
         outfile.write('FAKE NEWS / REAL NEWS CLASSIFICATION FOR ALL ARTICLES: \n')
@@ -310,7 +321,7 @@ def writeCalculations(output_file, cur, conn):
 
         
         # section page output
-        outfile.write('CALCULATION 2: On average, what page of the newspaper was each article from the New York Times sections in our database printed on?\n\n')
+        outfile.write('\n\nCALCULATION 2: On average, what page of the newspaper was each article from the New York Times sections in our database printed on?\n\n')
         
         for section in section_avg_dict:
             section_name = section
@@ -319,14 +330,14 @@ def writeCalculations(output_file, cur, conn):
             outfile.write('On average, a New York Times article belonging to the {} Section was printed on page {} of the newspaper.\n'.format(section_name, average_page))
 
         # articles per source
-        outfile.write('CALCULATION 3: For each source in the database, how many articles did we have from that source?\n\n')
+        outfile.write('\n\nCALCULATION 3: For each source in the database with more than 2 articles, how many articles did we have from that source?\n\n')
     
         for source in source_count_dict:
             outfile.write('Source Name: {}\n'.format(source))
             outfile.write('Number of articles from {}: {}\n\n'.format(source, source_count_dict[source]))
 
         # percentage of trump hedalines
-        outfile.write('CALCULATION 4: What percentage of Wall Street Journal Headlines involved Donald Trump?\n\n')
+        outfile.write('\n\nCALCULATION 4: What percentage of Wall Street Journal Headlines involved Donald Trump?\n\n')
         cur.execute('SELECT url_extension FROM WSJ_URL_Data')
         lst_urls = cur.fetchall()
 
@@ -342,10 +353,10 @@ def writeCalculations(output_file, cur, conn):
             total_count += 1
 
             outfile.write('Wall Street Journal Article URL: {}\n'.format(url))
-            outfile.write('Does the URL headline include Trump: {}\n\n'.format('YES' if trump else 'NO'))
+            outfile.write('\tDoes the URL headline include Trump: {}\n\n'.format('YES' if trump else 'NO'))
 
-        outfile.write('FINAL PERCENTAGE: {}\n'.format(float(trump_count) / total_count * 100))
-        outfile.write('Of all the WSJ headlines in our database, {}\% of them were about Donald Trump\n\n'.format(float(trump_count) / total_count * 100))
+        outfile.write('\n\nFINAL PERCENTAGE: {}\n'.format(float(trump_count) / total_count * 100))
+        outfile.write('\nOf all the WSJ headlines in our database, {}\% of them were about Donald Trump\n\n'.format(float(trump_count) / total_count * 100))
 
 
 writeCalculations('finalOutput.txt', cur, conn)
