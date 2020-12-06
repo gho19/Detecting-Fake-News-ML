@@ -4,33 +4,6 @@ import os
 import plotly.graph_objects as go
 import statistics
 
-# FILE FOR MAKING CALCULATIONS AND VISUALIZATIONS
-
-# NYT_ArticleContent
-# NYT_Sections
-# NYT_URL_Data
-# News_API
-# Sources (calculation 1)
-# Twitter
-# Twitter_users
-# WSJ_Article_Content
-# WSJ_URL_Data
-
-# You must select some data from all of the tables in your database and calculate something from that data
-# You must do at least one database join to select your data
-# Write out the calculated data to a file as text
-
-# STEP 0:
-    # make the table we talked about earlier
-    # source_id, article_id, classified as real or fake, expected real or fake
-
-# 1. For each source in the sources table, calculate the number of articles we have for that source
-
-
-# 2. Machine learning - for each article that we have in the database, is it predicted to be real or fake news?
-    # combine the Twitter
-
-# 3. 
 
 # Connects to database to pull data from tables in database 
 # Has db_name as a parameter, a string, for the database file name
