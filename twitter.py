@@ -56,7 +56,7 @@ def twitterUsersTable(usernames, cur, conn):
 # Creates table and adds data scraped from TWITTER API to 'twitter'
 # twitterTable() has a list of Twitter usernames as a parameter and curr + conn (for connecting to database)
 # The columns in the database are as follows: TweetId, Tweet, Timestamp, TweetNum, UserId
-def twitterTable(usernames, cur, conn):
+def twitterTable(name, cur, conn):
       cur.execute("DROP TABLE IF EXISTS Twitter")
       cur.execute("CREATE TABLE IF NOT EXISTS Twitter (TweetId INTEGER PRIMARY KEY, SourceId INTEGER, Tweet TEXT, Timestamp TEXT, TweetNum INTEGER, UserId INTEGER, UNIQUE(TweetNum), FOREIGN KEY (UserId) REFERENCES Twitter_Users (UserId))")
 
@@ -73,20 +73,21 @@ def twitterTable(usernames, cur, conn):
             cur.execute("SELECT * FROM Twitter WHERE TweetId = (SELECT MAX(TweetId) FROM Twitter)")
             data_count = cur.fetchone()[0] + 1     
       
-      for name in usernames:
-            # Scrape Twitter based upon username
-            data = twitterData(name)
-            cur.execute("SELECT UserId FROM Twitter_Users WHERE Twitter_Users.Username = '{}'".format(name))
-            name_count = cur.fetchone()[0]
-            # Setup database
-            for row in range(len(data)):
-                  sourceId = database.getSourceID(cur, conn, 'Twitter')
-                  cur.execute("INSERT INTO Twitter (TweetId, SourceId, TweetNum, Tweet, Timestamp, UserId) VALUES (?,?,?,?,?,?)", (data_count, sourceId, data[row][0], data[row][1], data[row][2], name_count,))
-                  data_count += 1
-            name_count += 1
-            print("Added 25 new Tweets to Twitter table!")
-            conn.commit()
-            time.sleep(5)
+      
+      # Scrape Twitter based upon username
+      data = twitterData(name)
+      cur.execute("SELECT UserId FROM Twitter_Users WHERE Twitter_Users.Username = '{}'".format(name))
+      name_count = cur.fetchone()[0]
+
+      # Setup database
+      for row in range(len(data)):
+            sourceId = database.getSourceID(cur, conn, 'Twitter')
+            cur.execute("INSERT INTO Twitter (TweetId, SourceId, TweetNum, Tweet, Timestamp, UserId) VALUES (?,?,?,?,?,?)", (data_count, sourceId, data[row][0], data[row][1], data[row][2], name_count,))
+            data_count += 1
+            
+      name_count += 1
+      print("Added 25 new Tweets to Twitter table!")
+      conn.commit()
             
 
 # Connects to database and inserts data into 'Twitter' table  
@@ -97,7 +98,8 @@ def fillAllTwitterTables():
       # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
       usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
       twitterUsersTable(usernames, cur, conn)
-      twitterTable(usernames, cur, conn)
+      name = 'JoeBiden' # 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence' CHANGE USERNAME EVERYTIME RUN PROGRAM
+      twitterTable(name, cur, conn)
 
 fillAllTwitterTables()
 
