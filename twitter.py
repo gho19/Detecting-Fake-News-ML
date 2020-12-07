@@ -4,6 +4,11 @@ import time
 import sqlite3
 import os
 import database
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--userName', type=str, choices=['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence'], required=True)
+args = parser.parse_args()
 
 api_key = 'WAXwiSwrSs088l8g91iRf9Tpc'
 api_secret = 'fO943Sq5b3ZCgxJAtcT0zouPxaKw2v4tjDd5eaQKuy7PkuC0r6'
@@ -91,17 +96,18 @@ def twitterTable(name, cur, conn):
             
 
 # Connects to database and inserts data into 'Twitter' table  
-def fillAllTwitterTables():
+def fillAllTwitterTables(userName):
       cur, conn = database.setUpDatabase('finalProject.db')
 
       # Usernames from Twitter to scrape Tweets from 
       # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
       usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
       twitterUsersTable(usernames, cur, conn)
-      name = 'JoeBiden' # 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence' CHANGE USERNAME EVERYTIME RUN PROGRAM
+      # name = 'JoeBiden' # 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence' CHANGE USERNAME EVERYTIME RUN PROGRAM
+      name = userName
       twitterTable(name, cur, conn)
 
-fillAllTwitterTables()
+fillAllTwitterTables(args.userName)
 
 # To run twitter.py, navigate to twitter directory 
 # Type python3 twitter.py

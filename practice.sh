@@ -23,7 +23,10 @@ do
 done
 
 # Twitter
-python3 twitter.py
+python twitter.py --userName JoeBiden
+python twitter.py --userName realDonaldTrump
+python twitter.py --userName KamalaHarris
+python twitter.py --userName Mike_Pence
 
 # ML Calculation
 python3 database.py
