@@ -7,7 +7,7 @@ import database
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--userName', type=str, choices=['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence'], required=True)
+parser.add_argument('--userName', type=str, required=True)
 args = parser.parse_args()
 
 api_key = 'WAXwiSwrSs088l8g91iRf9Tpc'
@@ -54,7 +54,6 @@ def twitterUsersTable(usernames, cur, conn):
 
       for name in range(len(usernames)):
             cur.execute("INSERT INTO Twitter_Users (UserId, Username) VALUES (?,?)", (name, usernames[name]))
-            print("Added new user to Twitter_Users table!")
       conn.commit()
             
 
@@ -62,7 +61,9 @@ def twitterUsersTable(usernames, cur, conn):
 # twitterTable() has a list of Twitter usernames as a parameter and curr + conn (for connecting to database)
 # The columns in the database are as follows: TweetId, Tweet, Timestamp, TweetNum, UserId
 def twitterTable(name, cur, conn):
-      cur.execute("DROP TABLE IF EXISTS Twitter")
+      if name == 'JoeBiden':
+            cur.execute("DROP TABLE IF EXISTS Twitter")
+      
       cur.execute("CREATE TABLE IF NOT EXISTS Twitter (TweetId INTEGER PRIMARY KEY, SourceId INTEGER, Tweet TEXT, Timestamp TEXT, TweetNum INTEGER, UserId INTEGER, UNIQUE(TweetNum), FOREIGN KEY (UserId) REFERENCES Twitter_Users (UserId))")
 
       # Check how many rows in DB Table
@@ -102,6 +103,9 @@ def fillAllTwitterTables(userName):
       # Usernames from Twitter to scrape Tweets from 
       # NOTE: SOMETIMES PREVENTS SCRAPING TRUMP'S TWITTER 
       usernames = ['JoeBiden', 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence']
+      if userName not in usernames:
+            usernames.append(userName)
+      
       twitterUsersTable(usernames, cur, conn)
       # name = 'JoeBiden' # 'realDonaldTrump', 'KamalaHarris', 'Mike_Pence' CHANGE USERNAME EVERYTIME RUN PROGRAM
       name = userName

@@ -23,6 +23,7 @@ do
 done
 
 # Twitter
+# add any valid twitter username if you want!
 python twitter.py --userName JoeBiden
 python twitter.py --userName realDonaldTrump
 python twitter.py --userName KamalaHarris
